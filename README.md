@@ -1,2 +1,2 @@
-# guinea
+# Guinea
 Gestión de laboratorio veterinario
