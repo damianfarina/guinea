@@ -59,8 +59,3 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: guinea-dev
