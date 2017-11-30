@@ -6,13 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/ruby:2.4.2-node-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
 
@@ -21,20 +15,20 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        # fallback to using the latest cache if no exact match is found
+        - v1-dependencies-
 
       - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+        name: install dependencies
+        command: |
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+        paths:
+          - ./vendor/bundle
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Database setup
       - run: bundle exec rake db:create
@@ -42,23 +36,24 @@ jobs:
 
       # run tests!
       - run:
-          name: run tests
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+        name: run tests
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
 
-            bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            -- $(sed -e 's/\n/\\n/' -e 's/ /\ /' <<< "${TEST_FILES}")
+          bundle exec rspec --format progress \
+                          --format RspecJunitFormatter \
+                          --out /tmp/test-results/rspec.xml \
+                          --format progress \
+                          -- $(sed -e 's/\n/\\n/' -e 's/ /\ /' <<< "${TEST_FILES}")
 
       # collect reports
       - store_test_results:
-          path: /tmp/test-results
+        path: /tmp/test-results
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+        path: /tmp/test-results
+        destination: test-results
+
 deploy-job:
   docker:
     - image: circleci/ruby:2.4.2-node-browsers
@@ -71,18 +66,18 @@ deploy-job:
       fingerprints:
         - "46:1f:34:77:f5:ea:71:4a:a4:a1:5a:78:7f:39:4a:c1"
     - run:
-        name: Deploy Master to Heroku
-        command: |
-          git push --force git@heroku.com:$HEROKU_APP_NAME.git HEAD:refs/heads/master
+      name: Deploy Master to Heroku
+      command: |
+        git push --force git@heroku.com:$HEROKU_APP_NAME.git HEAD:refs/heads/master
 
- workflows:
-   version: 2
-   build-deploy:
-     jobs:
-       - build-job
-       - deploy-job:
-           requires:
-             - build-job
-           filters:
-             branches:
-               only: master
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-job
+      - deploy-job:
+        requires:
+          - build-job
+        filters:
+          branches:
+            only: master
