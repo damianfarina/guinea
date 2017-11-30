@@ -21,7 +21,8 @@ RSpec.describe 'admissions/show', type: :view do
       sex: :female,
       breed: 'Black',
       months: 5,
-      owner_name: 'Zorro'
+      owner_name: 'Zorro',
+      comments: 'Sargento'
     ))
   end
 
@@ -37,5 +38,6 @@ RSpec.describe 'admissions/show', type: :view do
     expect(rendered).to match(/Black/)
     expect(rendered).to match(/5/)
     expect(rendered).to match(/Zorro/)
+    expect(rendered).to match(/Sargento/)
   end
 end

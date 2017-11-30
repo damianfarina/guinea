@@ -22,7 +22,8 @@ RSpec.describe "admissions/index", type: :view do
         sex: :male,
         breed: "Caniche",
         months: 5,
-        owner_name: "Mabel"
+        owner_name: "Mabel",
+        comments: 'This is a comment'
       ),
       Admission.create!(
         petitioner: petitioner,
@@ -45,16 +46,17 @@ RSpec.describe "admissions/index", type: :view do
     assert_select "tr>td", :text => petitioner.name, :count => 2
     assert_select "tr>td", :text => petitioner.phone, :count => 2
     assert_select "tr>td", :text => petitioner.email, :count => 2
-    assert_select "tr>td", :text => 'Patient Name'.to_s, :count => 2
+    assert_select "tr>td", :text => 'Patient Name', :count => 2
     assert_select "tr>td", :text => 'canine', :count => 1
     assert_select "tr>td", :text => 'feline', :count => 1
     assert_select "tr>td", :text => 'male', :count => 1
     assert_select "tr>td", :text => 'female', :count => 1
-    assert_select "tr>td", :text => 'Caniche'.to_s, :count => 1
-    assert_select "tr>td", :text => 'Puma'.to_s, :count => 1
+    assert_select "tr>td", :text => 'Caniche', :count => 1
+    assert_select "tr>td", :text => 'Puma', :count => 1
     assert_select "tr>td", :text => 5.to_s, :count => 1
     assert_select "tr>td", :text => 15.to_s, :count => 1
-    assert_select "tr>td", :text => 'Mabel'.to_s, :count => 1
-    assert_select "tr>td", :text => 'Jonatan'.to_s, :count => 1
+    assert_select "tr>td", :text => 'Mabel', :count => 1
+    assert_select "tr>td", :text => 'Jonatan', :count => 1
+    assert_select "tr>td", :text => 'This is a comment', :count => 1
   end
 end

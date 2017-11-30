@@ -27,28 +27,18 @@ RSpec.describe "admissions/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", admission_path(@admission), "post" do
-
       assert_select "input[name=?]", "admission[petitioner_id]"
-
       assert_select "input[name=?]", "admission[petitioner_name]"
-
       assert_select "input[name=?]", "admission[petitioner_type]"
-
       assert_select "input[name=?]", "admission[petitioner_phone]"
-
       assert_select "input[name=?]", "admission[petitioner_email]"
-
       assert_select "input[name=?]", "admission[patient_name]"
-
       assert_select "input[name=?]", "admission[species]"
-
       assert_select "input[name=?]", "admission[sex]"
-
       assert_select "input[name=?]", "admission[breed]"
-
       assert_select "input[name=?]", "admission[months]"
-
       assert_select "input[name=?]", "admission[owner_name]"
+      assert_select "textarea[name=?]", "admission[comments]"
     end
   end
 end

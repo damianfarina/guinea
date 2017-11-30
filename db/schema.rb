@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129220950) do
+ActiveRecord::Schema.define(version: 20171130191434) do
 
   create_table "admissions", force: :cascade do |t|
     t.string "petitioner_type"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20171129220950) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
+    t.text "comments"
     t.index ["petitioner_type", "petitioner_id"], name: "index_admissions_on_petitioner_type_and_petitioner_id"
   end
 

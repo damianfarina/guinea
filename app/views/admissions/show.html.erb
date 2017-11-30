@@ -55,5 +55,10 @@
   <%= @admission.owner_name %>
 </p>
 
+<p>
+  <strong>Comments:</strong>
+  <%= @admission.comments %>
+</p>
+
 <%= link_to 'Edit', edit_admission_path(@admission) %> |
 <%= link_to 'Back', admissions_path %>

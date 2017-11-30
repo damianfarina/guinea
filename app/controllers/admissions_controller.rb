@@ -19,15 +19,15 @@ class AdmissionsController < ApplicationController
     @admission = Admission.new(admission_params)
     unless @admission.petitioner_id.present?
       petitioner = Veterinarian.new(
-        full_name: params[:petitioner_name],
-        phone: params[:petitioner_phone],
-        email: params[:petitioner_email]
+        full_name: admission_params[:petitioner_name],
+        phone: admission_params[:petitioner_phone],
+        email: admission_params[:petitioner_email]
       )
-      @admission.petitioner = petitioner if petitioner.save
+      @admission.petitioner = petitioner if petitioner.valid?
     end
 
     respond_to do |format|
-      if @admission.save
+      if @admission.save && @admission.petitioner.save
         format.html { redirect_to @admission, notice: 'Admission was successfully created.' }
         format.json { render :show, status: :created, location: @admission }
       else
@@ -63,8 +63,20 @@ class AdmissionsController < ApplicationController
       @admission = Admission.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def admission_params
-      params.require(:admission).permit(:petitioner_id, :petitioner_name, :petitioner_type, :petitioner_phone, :petitioner_email, :patient_name, :species, :sex, :breed, :months, :owner_name)
+      params.require(:admission).permit(
+        :petitioner_id,
+        :petitioner_name,
+        :petitioner_type,
+        :petitioner_phone,
+        :petitioner_email,
+        :patient_name,
+        :species,
+        :sex,
+        :breed,
+        :months,
+        :owner_name,
+        :comments
+      )
     end
 end
