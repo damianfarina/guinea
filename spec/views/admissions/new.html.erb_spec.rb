@@ -19,7 +19,8 @@ RSpec.describe "admissions/new", type: :view do
       sex: :male,
       breed: 'Caniche',
       months: 1,
-      owner_name: 'Ana'
+      owner_name: 'Ana',
+      comments: 'A short comment'
     ))
   end
 
@@ -27,28 +28,18 @@ RSpec.describe "admissions/new", type: :view do
     render
 
     assert_select "form[action=?][method=?]", admissions_path, "post" do
-
       assert_select "input[name=?]", "admission[petitioner_id]"
-
       assert_select "input[name=?]", "admission[petitioner_name]"
-
       assert_select "input[name=?]", "admission[petitioner_type]"
-
       assert_select "input[name=?]", "admission[petitioner_phone]"
-
       assert_select "input[name=?]", "admission[petitioner_email]"
-
       assert_select "input[name=?]", "admission[patient_name]"
-
       assert_select "input[name=?]", "admission[species]"
-
       assert_select "input[name=?]", "admission[sex]"
-
       assert_select "input[name=?]", "admission[breed]"
-
       assert_select "input[name=?]", "admission[months]"
-
       assert_select "input[name=?]", "admission[owner_name]"
+      assert_select "textarea[name=?]", "admission[comments]"
     end
   end
 end

@@ -69,6 +69,11 @@
     <%= form.text_field :owner_name, id: :admission_owner_name %>
   </div>
 
+  <div class="field">
+    <%= form.label :comments %>
+    <%= form.text_area :comments, id: :admission_comments %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
