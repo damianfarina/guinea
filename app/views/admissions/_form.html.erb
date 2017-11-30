@@ -1,0 +1,75 @@
+<%= form_with(model: admission, local: true) do |form| %>
+  <% if admission.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admission.errors.count, "error") %> prohibited this admission from being saved:</h2>
+
+      <ul>
+      <% admission.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :petitioner_name %>
+    <%= form.text_field :petitioner_name, id: :admission_petitioner_name %>
+    <%= form.hidden_field :petitioner_id, id: :admission_petitioner_id %>
+    <%= form.hidden_field :petitioner_type, id: :admission_petitioner_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :petitioner_phone %>
+    <%= form.text_field :petitioner_phone, id: :admission_petitioner_phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :petitioner_email %>
+    <%= form.text_field :petitioner_email, id: :admission_petitioner_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :patient_name %>
+    <%= form.text_field :patient_name, id: :admission_patient_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :species %>
+    <%= form.collection_radio_buttons :species, Admission.species, :first, :first do |b| %>
+      <%= b.label(class: "radio_button") do %>
+        <%= b.radio_button(class: "radio_button") %>
+        <%= b.text %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sex %>
+    <%= form.collection_radio_buttons :sex, Admission.sexes, :first, :first do |b| %>
+      <%= b.label(class: "radio_button") do %>
+        <%= b.radio_button(class: "radio_button") %>
+        <%= b.text %>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <div class="field">
+    <%= form.label :breed %>
+    <%= form.text_field :breed, id: :admission_breed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :months %>
+    <%= form.number_field :months, id: :admission_months %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_name %>
+    <%= form.text_field :owner_name, id: :admission_owner_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

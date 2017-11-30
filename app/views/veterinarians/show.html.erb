@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Full name:</strong>
+  <%= @veterinarian.full_name %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @veterinarian.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @veterinarian.email %>
+</p>
+
+<%= link_to 'Edit', edit_veterinarian_path(@veterinarian) %> |
+<%= link_to 'Back', veterinarians_path %>

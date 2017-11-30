@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Petitioner:</strong>
+  <%= @admission.petitioner_name %>
+</p>
+
+<p>
+  <strong>Petitioner name:</strong>
+  <%= @admission.petitioner_name %>
+</p>
+
+<p>
+  <strong>Petitioner type:</strong>
+  <%= @admission.petitioner_type %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @admission.petitioner_phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @admission.petitioner_email %>
+</p>
+
+<p>
+  <strong>Patient name:</strong>
+  <%= @admission.patient_name %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @admission.species %>
+</p>
+
+<p>
+  <strong>Sex:</strong>
+  <%= @admission.sex %>
+</p>
+
+<p>
+  <strong>Breed:</strong>
+  <%= @admission.breed %>
+</p>
+
+<p>
+  <strong>Months:</strong>
+  <%= @admission.months %>
+</p>
+
+<p>
+  <strong>Owner name:</strong>
+  <%= @admission.owner_name %>
+</p>
+
+<%= link_to 'Edit', edit_admission_path(@admission) %> |
+<%= link_to 'Back', admissions_path %>

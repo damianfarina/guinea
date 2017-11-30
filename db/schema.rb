@@ -10,6 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20171129220950) do
+
+  create_table "admissions", force: :cascade do |t|
+    t.string "petitioner_type"
+    t.integer "petitioner_id"
+    t.string "petitioner_name"
+    t.string "petitioner_phone"
+    t.string "petitioner_email"
+    t.string "patient_name"
+    t.integer "species"
+    t.integer "sex"
+    t.string "breed"
+    t.integer "months"
+    t.string "owner_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "completed"
+    t.index ["petitioner_type", "petitioner_id"], name: "index_admissions_on_petitioner_type_and_petitioner_id"
+  end
+
+  create_table "veterinarians", force: :cascade do |t|
+    t.string "full_name"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "veterinaries", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
