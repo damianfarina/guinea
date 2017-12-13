@@ -1,3 +1,7 @@
+<% content_for :breadcrumbs do %>
+  <h3>Veterinary <%= @veterinary.name %></h3>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -13,6 +17,11 @@
 <p>
   <strong>Email:</strong>
   <%= @veterinary.email %>
+</p>
+
+<p>
+  <strong>Employees:</strong>
+  <%= @veterinary.veterinarians.map{|v| link_to v.full_name, v}.join(', ').html_safe %>
 </p>
 
 <%= link_to 'Edit', edit_veterinary_path(@veterinary) %> |

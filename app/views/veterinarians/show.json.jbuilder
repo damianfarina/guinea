@@ -1,1 +1,2 @@
-json.partial! "veterinarians/veterinarian", veterinarian: @veterinarian
+json.partial! 'veterinarians/veterinarian_with_veterinaries',
+  veterinarian: @veterinarian
