@@ -36,10 +36,12 @@ RSpec.describe Veterinary, type: :model do
     end.to raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it 'should require only a name' do
-    Veterinary.create!(name: 'Vet')
-    vet = Veterinary.create!(name: 'Vet')
-    expect(vet).to be_persisted
-    expect(Veterinary.where(name: 'Vet').count).to be(2)
+  it 'should only require a name' do
+    expect do
+      create :veterinary, name: 'Vet', email: nil, phone: nil
+    end.to change { Veterinary.where(name: 'Vet').count }.by(1)
+    expect do
+      create :veterinary, name: 'Vet', email: nil, phone: nil
+    end.to change { Veterinary.where(name: 'Vet').count }.by(1)
   end
 end

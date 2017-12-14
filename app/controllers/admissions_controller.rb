@@ -5,19 +5,17 @@ class AdmissionsController < ApplicationController
     @admissions = Admission.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @admission = Admission.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @admission = Admission.new(admission_params)
-    unless @admission.petitioner_id.present?
+    unless admission_params['petitioner_id'].present?
       petitioner = Veterinarian.new(
         full_name: admission_params[:petitioner_name],
         phone: admission_params[:petitioner_phone],
@@ -38,6 +36,14 @@ class AdmissionsController < ApplicationController
   end
 
   def update
+    unless admission_params['petitioner_id'].present?
+      petitioner = Veterinarian.new(
+        full_name: admission_params[:petitioner_name],
+        phone: admission_params[:petitioner_phone],
+        email: admission_params[:petitioner_email]
+      )
+      @admission.petitioner = petitioner if petitioner.valid?
+    end
     respond_to do |format|
       if @admission.update(admission_params)
         format.html { redirect_to @admission, notice: 'Admission was successfully updated.' }
@@ -57,26 +63,26 @@ class AdmissionsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admission
-      @admission = Admission.find(params[:id])
-    end
+private
 
-    def admission_params
-      params.require(:admission).permit(
-        :petitioner_id,
-        :petitioner_name,
-        :petitioner_type,
-        :petitioner_phone,
-        :petitioner_email,
-        :patient_name,
-        :species,
-        :sex,
-        :breed,
-        :months,
-        :owner_name,
-        :comments
-      )
-    end
+  def set_admission
+    @admission = Admission.find(params[:id])
+  end
+
+  def admission_params
+    params.require(:admission).permit(
+      :petitioner_id,
+      :petitioner_name,
+      :petitioner_type,
+      :petitioner_phone,
+      :petitioner_email,
+      :patient_name,
+      :species,
+      :sex,
+      :breed,
+      :months,
+      :owner_name,
+      :comments
+    )
+  end
 end

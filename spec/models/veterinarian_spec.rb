@@ -1,17 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Veterinarian, type: :model do
-  let(:veterinarian) do
-    Veterinarian.create!(
-      full_name: 'Doc Enrique',
-      phone: '261 669 1452',
-      email: 'email@email.com'
-    )
-  end
-
-  let(:veterinary) do
-    Veterinary.create!(name: 'The Vet', phone: '261 491 7654')
-  end
+  let(:veterinarian) { create :veterinarian }
+  let(:veterinary) { create :veterinary }
 
   before(:each) do
     veterinary.veterinarians = [veterinarian]
@@ -23,20 +14,22 @@ RSpec.describe Veterinarian, type: :model do
 
   it 'should not allow duplicated phones' do
     expect do
-      Veterinarian.create!(full_name: 'Vet', phone: '261 669 1452')
+      Veterinarian.create!(full_name: 'Vet', phone: veterinarian.phone)
     end.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should not allow duplicated emails' do
     expect do
-      Veterinarian.create!(full_name: 'Vet', email: 'email@email.com')
+      Veterinarian.create!(full_name: 'Vet', email: veterinarian.email)
     end.to raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it 'should require only a name' do
-    Veterinarian.create!(full_name: 'Vet')
-    vet = Veterinarian.create!(full_name: 'Vet')
-    expect(vet).to be_persisted
-    expect(Veterinarian.where(full_name: 'Vet').count).to be(2)
+  it 'should only require full_name' do
+    expect do
+      create :veterinarian, full_name: 'Vet', email: nil, phone: nil
+    end.to change { Veterinarian.where(full_name: 'Vet').count }.by(1)
+    expect do
+      create :veterinarian, full_name: 'Vet', email: nil, phone: nil
+    end.to change { Veterinarian.where(full_name: 'Vet').count }.by(1)
   end
 end

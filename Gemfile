@@ -44,6 +44,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7.0'
   gem 'rspec_junit_formatter'
   gem 'sqlite3'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do

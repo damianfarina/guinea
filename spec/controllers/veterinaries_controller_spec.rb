@@ -4,26 +4,13 @@ RSpec.describe VeterinariesController, type: :controller do
   render_views
 
   let(:json) { JSON.parse(response.body) }
-
-  let(:valid_attributes) do
-    {
-      name: 'Diagnovet',
-      phone: '261 111 2233',
-      email: 'diagnovet@email.com'
-    }
-  end
-
-  let(:invalid_attributes) do
-    {
-      email: 'invalid'
-    }
-  end
-
+  let(:valid_attributes) { attributes_for(:veterinary) }
+  let(:invalid_attributes) { {email: 'invalid'} }
   let(:valid_session) { {} }
 
   describe 'GET #index' do
     it 'returns a success response' do
-      Veterinary.create! valid_attributes
+      create :veterinary
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -34,21 +21,8 @@ RSpec.describe VeterinariesController, type: :controller do
     let(:veterinary2) { Veterinary.second }
 
     before(:each) do
-      Veterinary.create! valid_attributes
-      Veterinary.create!(
-        name: 'Vetdiagno',
-        phone: '261 111 1111',
-        email: 'vetdiagno@email.com'
-      )
-      veterinary1.veterinarians = [
-        Veterinarian.create!(full_name: 'Eduardo'),
-        Veterinarian.create!(full_name: 'Bibi')
-      ]
-      veterinary2.veterinarians = [
-        Veterinarian.create!(full_name: 'Melisa'),
-        Veterinarian.create!(full_name: 'Natalia'),
-        Veterinarian.create!(full_name: 'Damián')
-      ]
+      create :veterinary_with_employees, employees_count: 2
+      create :veterinary_with_employees, employees_count: 3
       get :index, format: :json
     end
 
@@ -68,20 +42,25 @@ RSpec.describe VeterinariesController, type: :controller do
         )
         veterinary1_json = json[0]
         expect(veterinary1_json['veterinarians'].count).to be(2)
-        expect(veterinary1_json['veterinarians'][0]['full_name']).to eq('Eduardo')
-        expect(veterinary1_json['veterinarians'][1]['full_name']).to eq('Bibi')
+        expect(veterinary1_json['veterinarians'].map { |a| a['full_name'] }).to contain_exactly(
+          a_string_matching(Veterinarian.first.full_name),
+          a_string_matching(Veterinarian.second.full_name)
+        )
+
         veterinary2_json = json[1]
         expect(veterinary2_json['veterinarians'].count).to be(3)
-        expect(veterinary2_json['veterinarians'][0]['full_name']).to eq('Melisa')
-        expect(veterinary2_json['veterinarians'][1]['full_name']).to eq('Natalia')
-        expect(veterinary2_json['veterinarians'][2]['full_name']).to eq('Damián')
+        expect(veterinary2_json['veterinarians'].map { |a| a['full_name'] }).to contain_exactly(
+          a_string_matching(Veterinarian.third.full_name),
+          a_string_matching(Veterinarian.fourth.full_name),
+          a_string_matching(Veterinarian.fifth.full_name)
+        )
       end
     end
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      veterinary = Veterinary.create! valid_attributes
+      veterinary = create :veterinary
       get :show, params: {id: veterinary.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -96,7 +75,7 @@ RSpec.describe VeterinariesController, type: :controller do
 
   describe 'GET #edit' do
     it 'returns a success response' do
-      veterinary = Veterinary.create! valid_attributes
+      veterinary = create :veterinary
       get :edit, params: {id: veterinary.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -105,9 +84,9 @@ RSpec.describe VeterinariesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Veterinary' do
-        expect {
+        expect do
           post :create, params: {veterinary: valid_attributes}, session: valid_session
-        }.to change(Veterinary, :count).by(1)
+        end.to change(Veterinary, :count).by(1)
       end
 
       it 'redirects to the created veterinary' do
@@ -133,7 +112,7 @@ RSpec.describe VeterinariesController, type: :controller do
       end
 
       it 'updates the requested veterinary' do
-        veterinary = Veterinary.create! valid_attributes
+        veterinary = create :veterinary
         put :update,
           params: {id: veterinary.to_param, veterinary: new_attributes},
           session: valid_session
@@ -142,7 +121,7 @@ RSpec.describe VeterinariesController, type: :controller do
       end
 
       it 'redirects to the veterinary' do
-        veterinary = Veterinary.create! valid_attributes
+        veterinary = create :veterinary
         put :update,
           params: {id: veterinary.to_param, veterinary: valid_attributes},
           session: valid_session
@@ -152,7 +131,7 @@ RSpec.describe VeterinariesController, type: :controller do
 
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the \'edit\' template)' do
-        veterinary = Veterinary.create! valid_attributes
+        veterinary = create :veterinary
         put :update,
           params: {id: veterinary.to_param, veterinary: invalid_attributes},
           session: valid_session
@@ -163,14 +142,14 @@ RSpec.describe VeterinariesController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested veterinary' do
-      veterinary = Veterinary.create! valid_attributes
-      expect {
+      veterinary = create :veterinary
+      expect do
         delete :destroy, params: {id: veterinary.to_param}, session: valid_session
-      }.to change(Veterinary, :count).by(-1)
+      end.to change(Veterinary, :count).by(-1)
     end
 
     it 'redirects to the veterinaries list' do
-      veterinary = Veterinary.create! valid_attributes
+      veterinary = create :veterinary
       delete :destroy, params: {id: veterinary.to_param}, session: valid_session
       expect(response).to redirect_to(veterinaries_url)
     end

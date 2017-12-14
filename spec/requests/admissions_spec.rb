@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Admissions", type: :request do
+RSpec.describe 'Admissions', type: :request do
   let!(:admission) do
     petitioner = Veterinarian.create!(
       full_name: 'Montoto (Veterinary El Cachorro)',
@@ -24,8 +24,8 @@ RSpec.describe "Admissions", type: :request do
     )
   end
 
-  describe "GET /admissions" do
-    it "should return a list of admissions" do
+  describe 'GET /admissions' do
+    it 'should return a list of admissions' do
       get admissions_path
       expect(response).to have_http_status(200)
     end
