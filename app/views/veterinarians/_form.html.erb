@@ -26,6 +26,14 @@
     <%= form.text_field :email, id: :veterinarian_email %>
   </div>
 
+  <div class="field">
+    <%= form.label :veterinaries %>
+    <%= collection_select(:veterinaries, :veterinary_ids,
+      Veterinary.all, :id, :name,
+      {selected: veterinarian.veterinaries.map(&:id)},
+      {id: :veterinarian_veterinaries, multiple: true, size: 5}) %>
+  </div>
+
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
   </div>

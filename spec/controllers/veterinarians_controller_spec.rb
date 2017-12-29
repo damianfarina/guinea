@@ -97,6 +97,20 @@ RSpec.describe VeterinariansController, type: :controller do
         post :create, params: {veterinarian: valid_attributes}, session: valid_session
         expect(response).to redirect_to(Veterinarian.last)
       end
+
+      it 'should save veterinaries' do
+        veterinaries_attributes = {
+          veterinary_ids: [
+            create(:veterinary).id,
+            create(:veterinary).id
+          ]
+        }
+        post :create,
+          params: {veterinarian: valid_attributes, veterinaries: veterinaries_attributes},
+          session: valid_session
+        veterinarian = Veterinarian.last
+        expect(veterinarian.veterinaries.count).to be(2)
+      end
     end
 
     context 'with invalid params' do
@@ -109,14 +123,21 @@ RSpec.describe VeterinariansController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
+      let(:veterinary1) { create :veterinary }
+      let(:veterinary2) { create :veterinary }
+      let(:veterinarian) { create :veterinarian, veterinaries: [veterinary1, veterinary2] }
       let(:new_attributes) do
         {
           full_name: 'Hernesto'
         }
       end
+      let(:new_veterinaries_attributes) do
+        {
+          veterinary_ids: [veterinary1.id]
+        }
+      end
 
       it 'updates the requested veterinarian' do
-        veterinarian = create :veterinarian
         put :update,
           params: {id: veterinarian.to_param, veterinarian: new_attributes},
           session: valid_session
@@ -125,11 +146,22 @@ RSpec.describe VeterinariansController, type: :controller do
       end
 
       it 'redirects to the veterinarian' do
-        veterinarian = create :veterinarian
         put :update,
           params: {id: veterinarian.to_param, veterinarian: valid_attributes},
           session: valid_session
         expect(response).to redirect_to(veterinarian)
+      end
+
+      it 'should update veterinaries' do
+        put :update,
+          params: {
+            id: veterinarian.to_param,
+            veterinarian: valid_attributes,
+            veterinaries: new_veterinaries_attributes
+          },
+          session: valid_session
+        veterinarian.reload
+        expect(veterinarian.veterinaries.count).to eq(1)
       end
     end
 

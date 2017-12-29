@@ -17,9 +17,11 @@ class VeterinariansController < ApplicationController
 
   def create
     @veterinarian = Veterinarian.new(veterinarian_params)
+    set_veterinaries
 
     respond_to do |format|
       if @veterinarian.save
+        @veterinarian.veterinaries = @veterinaries
         format.html { redirect_to @veterinarian, notice: 'Veterinarian was successfully created.' }
         format.json { render :show, status: :created, location: @veterinarian }
       else
@@ -30,8 +32,10 @@ class VeterinariansController < ApplicationController
   end
 
   def update
+    set_veterinaries
     respond_to do |format|
       if @veterinarian.update(veterinarian_params)
+        @veterinarian.veterinaries = @veterinaries
         format.html { redirect_to @veterinarian, notice: 'Veterinarian was successfully updated.' }
         format.json { render :show, status: :ok, location: @veterinarian }
       else
@@ -49,14 +53,25 @@ class VeterinariansController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_veterinarian
-      @veterinarian = Veterinarian.find(params[:id])
-    end
+private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def veterinarian_params
-      params.require(:veterinarian).permit(:full_name, :phone, :email)
-    end
+  def set_veterinaries
+    @veterinaries = @veterinarian.veterinaries
+    return unless veterinaries_params.present?
+    @veterinaries = veterinaries_params['veterinary_ids']
+      .delete_if(&:empty?)
+      .map { |veterinary_id| Veterinary.find(veterinary_id) }
+  end
+
+  def set_veterinarian
+    @veterinarian = Veterinarian.find(params[:id])
+  end
+
+  def veterinaries_params
+    params.fetch(:veterinaries, {}).permit(veterinary_ids: [])
+  end
+
+  def veterinarian_params
+    params.require(:veterinarian).permit(:full_name, :phone, :email)
+  end
 end
