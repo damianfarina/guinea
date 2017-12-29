@@ -21,8 +21,8 @@ RSpec.describe VeterinariesController, type: :controller do
     let(:veterinary2) { Veterinary.second }
 
     before(:each) do
-      create :veterinary_with_employees, employees_count: 2
-      create :veterinary_with_employees, employees_count: 3
+      create :veterinary_with_veterinarians, veterinarians_count: 2
+      create :veterinary_with_veterinarians, veterinarians_count: 3
       get :index, format: :json
     end
 
@@ -93,6 +93,20 @@ RSpec.describe VeterinariesController, type: :controller do
         post :create, params: {veterinary: valid_attributes}, session: valid_session
         expect(response).to redirect_to(Veterinary.last)
       end
+
+      it 'should save veterinarians' do
+        veterinarians_attributes = {
+          veterinarian_ids: [
+            create(:veterinarian).id,
+            create(:veterinarian).id
+          ]
+        }
+        post :create,
+          params: {veterinary: valid_attributes, veterinarians: veterinarians_attributes},
+          session: valid_session
+        veterinary = Veterinary.last
+        expect(veterinary.veterinarians.count).to be(2)
+      end
     end
 
     context 'with invalid params' do
@@ -105,23 +119,51 @@ RSpec.describe VeterinariesController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
-      let(:new_attributes) do
+      let(:veterinary) { create :veterinary_with_veterinarians, veterinarians_count: 2 }
+      let(:new_veterinarian) { create :veterinarian }
+      let(:veterinarians_attributes) do
         {
-          name: 'La Vete'
+          veterinarian_ids: [
+            *veterinary.veterinarians.map(&:id),
+            new_veterinarian.id
+          ]
         }
       end
 
       it 'updates the requested veterinary' do
-        veterinary = create :veterinary
         put :update,
-          params: {id: veterinary.to_param, veterinary: new_attributes},
+          params: {
+            id: veterinary.to_param,
+            veterinary: {name: 'La Vete'},
+            veterinarians: veterinarians_attributes
+          },
           session: valid_session
         veterinary.reload
         expect(veterinary.name).to eq('La Vete')
+        expect(veterinary.veterinarians.map(&:full_name)).to contain_exactly(
+          a_string_matching(Veterinarian.first.full_name),
+          a_string_matching(Veterinarian.second.full_name),
+          a_string_matching(Veterinarian.third.full_name)
+        )
+      end
+
+      it 'should not save veterinarians if there is an error on veterinary' do
+        put :update,
+          params: {
+            id: veterinary.to_param,
+            veterinary: {name: ''},
+            veterinarians: veterinarians_attributes
+          },
+          session: valid_session
+        veterinary.reload
+        expect(veterinary.name).not_to eq('')
+        expect(veterinary.veterinarians.map(&:full_name)).to contain_exactly(
+          a_string_matching(Veterinarian.first.full_name),
+          a_string_matching(Veterinarian.second.full_name)
+        )
       end
 
       it 'redirects to the veterinary' do
-        veterinary = create :veterinary
         put :update,
           params: {id: veterinary.to_param, veterinary: valid_attributes},
           session: valid_session

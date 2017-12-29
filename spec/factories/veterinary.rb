@@ -4,13 +4,13 @@ FactoryBot.define do
     email { "contact@#{Faker::Internet.user_name(name, %w[])}.com" }
     phone { Faker::PhoneNumber.phone_number }
 
-    factory :veterinary_with_employees do
+    factory :veterinary_with_veterinarians do
       transient do
-        employees_count 5
+        veterinarians_count 5
       end
 
       after(:create) do |veterinary, evaluator|
-        create_list :veterinarian, evaluator.employees_count, veterinaries: [veterinary]
+        create_list :veterinarian, evaluator.veterinarians_count, veterinaries: [veterinary]
       end
     end
   end

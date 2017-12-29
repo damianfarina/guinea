@@ -66,3 +66,6 @@ Style/FrozenStringLiteralComment:
 
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
+
+Style/SymbolArray:
+  Enabled: false

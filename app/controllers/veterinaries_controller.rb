@@ -5,21 +5,21 @@ class VeterinariesController < ApplicationController
     @veterinaries = Veterinary.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @veterinary = Veterinary.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @veterinary = Veterinary.new(veterinary_params)
+    set_veterinarians
 
     respond_to do |format|
       if @veterinary.save
+        @veterinary.veterinarians = @veterinarians
         format.html { redirect_to @veterinary, notice: 'Veterinary was successfully created.' }
         format.json { render :show, status: :created, location: @veterinary }
       else
@@ -30,8 +30,10 @@ class VeterinariesController < ApplicationController
   end
 
   def update
+    set_veterinarians
     respond_to do |format|
       if @veterinary.update(veterinary_params)
+        @veterinary.veterinarians = @veterinarians
         format.html { redirect_to @veterinary, notice: 'Veterinary was successfully updated.' }
         format.json { render :show, status: :ok, location: @veterinary }
       else
@@ -49,14 +51,29 @@ class VeterinariesController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_veterinary
-      @veterinary = Veterinary.find(params[:id])
-    end
+private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def veterinary_params
-      params.require(:veterinary).permit(:name, :phone, :email)
-    end
+  def set_veterinarians
+    @veterinarians = @veterinary.veterinarians
+    return unless veterinarian_params.present?
+    @veterinarians = veterinarian_params['veterinarian_ids']
+      .delete_if(&:empty?)
+      .map { |veterinarian_id| Veterinarian.find(veterinarian_id) }
+  end
+
+  def set_veterinary
+    @veterinary = Veterinary.find(params[:id])
+  end
+
+  def veterinarian_params
+    params.fetch(:veterinarians, {}).permit(veterinarian_ids: [])
+  end
+
+  def veterinary_params
+    params.require(:veterinary).permit(
+      :name,
+      :phone,
+      :email
+    )
+  end
 end

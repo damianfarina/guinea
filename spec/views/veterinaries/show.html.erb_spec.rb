@@ -21,7 +21,7 @@ RSpec.describe "veterinaries/show", type: :view do
     expect(rendered).to match(/Name/)
     expect(rendered).to match(/261 444 5678/)
     expect(rendered).to match(/email@email.com/)
-    expect(rendered).to match(/Employees/)
+    expect(rendered).to match(/Veterinarians/)
     expect(rendered).to match(/Mariano/)
     expect(rendered).to match(/Mika/)
   end
