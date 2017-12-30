@@ -34,7 +34,7 @@ RSpec.describe 'editing a veterinary', type: :system do
     select veterinarian3.full_name, from: 'Veterinarians'
 
 
-    click_on('Update veterinary')
+    click_on('Update veterinaria')
 
     expect(current_path).to eq(veterinary_path(veterinary))
     expect(page).to have_content('Veterinary was successfully updated')

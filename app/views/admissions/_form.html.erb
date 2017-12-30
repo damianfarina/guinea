@@ -38,7 +38,7 @@
     <%= form.collection_radio_buttons :species, Admission.species, :first, :first do |b| %>
       <%= b.label(class: "radio_button") do %>
         <%= b.radio_button(class: "radio_button") %>
-        <%= b.text %>
+        <%= t(b.text, scope: [:activerecord, :attributes, :admission, :species]) %>
       <% end %>
     <% end %>
   </div>
@@ -48,7 +48,7 @@
     <%= form.collection_radio_buttons :sex, Admission.sexes, :first, :first do |b| %>
       <%= b.label(class: "radio_button") do %>
         <%= b.radio_button(class: "radio_button") %>
-        <%= b.text %>
+        <%= t(b.text, scope: [:activerecord, :attributes, :admission, :sex]) %>
       <% end %>
     <% end %>
 
@@ -75,6 +75,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit t(:create_resource, scope: [:common], name: Admission.model_name.human), class: 'btn btn-primary' %>
   </div>
 <% end %>

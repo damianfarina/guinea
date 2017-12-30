@@ -2,9 +2,9 @@
 
 .nav {
   &__item {
-    text-transform: capitalize;
     display: inline-block;
     width: 100%;
+    white-space: nowrap;
 
     &--active {
       font-weight: 400;
@@ -29,6 +29,12 @@
     &:hover {
       text-decoration: none;
       background-color: $color4;
+    }
+  }
+
+  &__item-label {
+    &::first-letter {
+      text-transform: capitalize;
     }
   }
 }

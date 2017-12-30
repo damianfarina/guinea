@@ -8,36 +8,22 @@
 <table>
   <thead>
     <tr>
-      <th>Petitioner name</th>
-      <th>Petitioner Phone</th>
-      <th>Petitioner Email</th>
-      <th>Patient name</th>
-      <th>Species</th>
-      <th>Sex</th>
-      <th>Breed</th>
-      <th>Months</th>
-      <th>Owner name</th>
-      <th>Comments</th>
-      <th colspan="3"></th>
+      <th><%= Admission.human_attribute_name(:petitioner_name)  %></th>
+      <th><%= Admission.human_attribute_name(:patient_name)  %></th>
+      <th><%= Admission.human_attribute_name(:species)  %></th>
+      <th><%= Admission.human_attribute_name(:breed)  %></th>
+      <th><%= Admission.human_attribute_name(:sex)  %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @admissions.each do |admission| %>
       <tr>
-        <td><%= admission.petitioner_name %></td>
-        <td><%= admission.petitioner_phone %></td>
-        <td><%= admission.petitioner_email %></td>
-        <td><%= admission.patient_name %></td>
-        <td><%= admission.species %></td>
-        <td><%= admission.sex %></td>
+        <td><%= link_to admission.petitioner_name, admission %></td>
+        <td><%= link_to admission.patient_name, admission %></td>
+        <td><%= t(admission.species, scope: [:activerecord, :attributes, :admission, :species]) %></td>
         <td><%= admission.breed %></td>
-        <td><%= admission.months %></td>
-        <td><%= admission.owner_name %></td>
-        <td><%= admission.comments %></td>
-        <td><%= link_to 'Show', admission %></td>
-        <td><%= link_to 'Edit', edit_admission_path(admission) %></td>
-        <td><%= link_to 'Destroy', admission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= t(admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -45,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Admission', new_admission_path %>
+<%= link_to t(:new_resource, scope: [:common], name: Admission.model_name.human), new_admission_path %>

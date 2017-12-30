@@ -1,0 +1,38 @@
+es:
+  common:
+    new_resource: nueva %{name}
+    create_resource: guardar %{name}
+  activerecord:
+    models:
+      admission:
+        one: orden de ingreso
+        other: órdenes de ingreso
+      veterinarian:
+        one: veterinario
+        other: veterinarios
+      veterinary:
+        one: veterinaria
+        other: veterinarias
+    attributes:
+      admission:
+        petitioner_name: solicitante
+        petitioner_phone: teléfono
+        petitioner_email: EMail
+        patient_name: paciente
+        species:
+          one: especie
+          other: especies
+          canine: canino
+          feline: felino
+          feline: felino
+          equine: equino
+        sex:
+          one: sexo
+          other: sexos
+          male: masculino
+          female: femenino
+        breed: raza
+        months: meses
+        age: edad
+        owner_name: propietario
+        comments: comentarios

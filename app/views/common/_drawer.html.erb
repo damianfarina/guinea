@@ -2,15 +2,15 @@
   <nav class="nav">
     <%= nav_item_to admissions_path do %>
       <%= image_tag 'icons/ic_event_note_black_24px.svg', class: 'nav__item-icon', alt: Admission.model_name.human(count: 2) %>
-      <%= Admission.model_name.human(count: 2) %>
+      <span class="nav__item-label"><%= Admission.model_name.human(count: 2) %></span>
     <% end %>
     <%= nav_item_to veterinaries_path do %>
       <%= image_tag 'icons/ic_pets_black_24px.svg', class: 'nav__item-icon', alt: Veterinary.model_name.human(count: 2) %>
-      <%= Veterinary.model_name.human(count: 2) %>
+      <span class="nav__item-label"><%= Veterinary.model_name.human(count: 2) %></span>
     <% end %>
     <%= nav_item_to veterinarians_path do %>
       <%= image_tag 'icons/ic_contacts_black_24px.svg', class: 'nav__item-icon', alt: Veterinarian.model_name.human(count: 2) %>
-      <%= Veterinarian.model_name.human(count: 2) %>
+      <span class="nav__item-label"><%= Veterinarian.model_name.human(count: 2) %></span>
     <% end %>
   </nav>
 </div>
