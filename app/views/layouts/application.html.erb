@@ -19,14 +19,15 @@
 
   <body>
     <div class="top-bar">
-
       <% if content_for? :breadcrumbs %>
         <%= yield :breadcrumbs %>
       <% else %>
         <%= image_tag 'logo.svg', height: '30px' %>
       <% end %>
-
     </div>
-    <%= yield %>
+    <div class="content">
+      <%= yield %>
+    </div>
+    <%= render 'common/drawer' %>
   </body>
 </html>

@@ -1,4 +1,6 @@
-<h1>New Admission</h1>
+<% content_for :breadcrumbs do %>
+  <h3 class="top-bar__title">New Admission</h3>
+<% end %>
 
 <%= render 'form', admission: @admission %>
 

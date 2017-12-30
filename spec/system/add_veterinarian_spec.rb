@@ -14,7 +14,7 @@ RSpec.describe 'adding a veterinarian', :focus, type: :system do
     fill_in 'Email', with: veterinarian_attributes[:email]
     select veterinary1.name, from: 'Veterinaries'
 
-    click_on('Create Veterinarian')
+    click_on('Create veterinarian')
 
     expect(page).to have_content('Veterinarian was successfully created')
     expect(page).to have_content(veterinarian_attributes[:full_name])

@@ -1,0 +1,8 @@
+@import 'variables';
+
+.drawer {
+  grid-area: drawer;
+  background-color: #fff;
+  border-right: 1px solid $color-border;
+  padding: $default-spacing 0;
+}

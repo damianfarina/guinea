@@ -30,4 +30,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      admission:
+        one: admission
+        other: admissions
+      veterinarian:
+        one: veterinarian
+        other: veterinarians
+      veterinary:
+        one: veterinary
+        other: veterinaries

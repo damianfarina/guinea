@@ -1,0 +1,7 @@
+@import 'variables';
+
+.content {
+  grid-area: content;
+  padding: ($default-spacing * 2) $default-spacing;
+}
+
