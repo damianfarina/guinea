@@ -5,62 +5,52 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Petitioner:</strong>
+  <strong><%= Admission.human_attribute_name(:petitioner_name) %>:</strong>
   <%= @admission.petitioner_name %>
 </p>
 
 <p>
-  <strong>Petitioner name:</strong>
-  <%= @admission.petitioner_name %>
-</p>
-
-<p>
-  <strong>Petitioner type:</strong>
-  <%= @admission.petitioner_type %>
-</p>
-
-<p>
-  <strong>Petitioner phone:</strong>
+  <strong><%= Admission.human_attribute_name(:petitioner_phone) %>:</strong>
   <%= @admission.petitioner_phone %>
 </p>
 
 <p>
-  <strong>Petitioner email:</strong>
+  <strong><%= Admission.human_attribute_name(:petitioner_email) %>:</strong>
   <%= @admission.petitioner_email %>
 </p>
 
 <p>
-  <strong>Patient name:</strong>
+  <strong><%= Admission.human_attribute_name(:patient_name) %>:</strong>
   <%= @admission.patient_name %>
 </p>
 
 <p>
-  <strong>Species:</strong>
+  <strong><%= Admission.human_attribute_name(:species) %>:</strong>
   <%= @admission.species %>
 </p>
 
 <p>
-  <strong>Sex:</strong>
+  <strong><%= Admission.human_attribute_name(:sex) %>:</strong>
   <%= @admission.sex %>
 </p>
 
 <p>
-  <strong>Breed:</strong>
+  <strong><%= Admission.human_attribute_name(:breed) %>:</strong>
   <%= @admission.breed %>
 </p>
 
 <p>
-  <strong>Months:</strong>
+  <strong><%= Admission.human_attribute_name(:months) %>:</strong>
   <%= @admission.months %>
 </p>
 
 <p>
-  <strong>Owner name:</strong>
+  <strong><%= Admission.human_attribute_name(:owner_name) %>:</strong>
   <%= @admission.owner_name %>
 </p>
 
 <p>
-  <strong>Comments:</strong>
+  <strong><%= Admission.human_attribute_name(:comments) %>:</strong>
   <%= @admission.comments %>
 </p>
 
