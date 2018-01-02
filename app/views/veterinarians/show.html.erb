@@ -1,28 +1,28 @@
 <% content_for :breadcrumbs do %>
-  <h3>Veterinarian <%= @veterinarian.full_name %></h3>
+  <h3 class="top-bar__title"><%= Veterinarian.model_name.human %></h3>
 <% end %>
 
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Full name:</strong>
+  <strong><%= Veterinarian.human_attribute_name(:full_name) %>:</strong>
   <%= @veterinarian.full_name %>
 </p>
 
 <p>
-  <strong>Phone:</strong>
+  <strong><%= Veterinarian.human_attribute_name(:phone) %>:</strong>
   <%= @veterinarian.phone %>
 </p>
 
 <p>
-  <strong>Email:</strong>
+  <strong><%= Veterinarian.human_attribute_name(:email) %>:</strong>
   <%= @veterinarian.email %>
 </p>
 
 <p>
-  <strong>Works at:</strong>
+  <strong><%= Veterinarian.human_attribute_name(:veterinaries) %>:</strong>
   <%= @veterinarian.veterinaries.map{|v| link_to v.name, v}.join(', ').html_safe %>
 </p>
 
-<%= link_to 'Edit', edit_veterinarian_path(@veterinarian) %> |
-<%= link_to 'Back', veterinarians_path %>
+<%= link_to t(:edit_resource, scope: [:common], resource: Veterinarian.model_name.human), edit_veterinarian_path(@veterinarian) %> |
+<%= link_to t(:destroy_resource, scope: [:common], resource: Veterinarian.model_name.human), @veterinarian, method: :delete, data: { confirm: 'Are you sure?' } %>

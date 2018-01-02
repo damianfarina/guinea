@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'adding a veterinarian', :focus, type: :system do
+RSpec.describe 'adding a veterinarian', type: :system do
   let(:veterinarian_attributes) { attributes_for :veterinarian }
   let!(:veterinary1) { create :veterinary }
   let!(:veterinary2) { create :veterinary }
@@ -9,14 +9,14 @@ RSpec.describe 'adding a veterinarian', :focus, type: :system do
   it 'should create a veterinarian' do
     visit new_veterinarian_path
 
-    fill_in 'Full name', with: veterinarian_attributes[:full_name]
-    fill_in 'Phone', with: veterinarian_attributes[:phone]
-    fill_in 'Email', with: veterinarian_attributes[:email]
-    select veterinary1.name, from: 'Veterinaries'
+    fill_in 'nombre', with: veterinarian_attributes[:full_name]
+    fill_in 'teléfono', with: veterinarian_attributes[:phone]
+    fill_in 'EMail', with: veterinarian_attributes[:email]
+    select veterinary1.name, from: 'veterinarias'
 
-    click_on('Create veterinario')
+    click_on('guardar veterinario')
 
-    expect(page).to have_content('Veterinarian was successfully created')
+    expect(page).to have_content('veterinario fue guardado correctamente')
     expect(page).to have_content(veterinarian_attributes[:full_name])
     expect(page).to have_content(veterinarian_attributes[:phone])
     expect(page).to have_content(veterinarian_attributes[:email])

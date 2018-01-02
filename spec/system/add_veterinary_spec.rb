@@ -9,14 +9,14 @@ RSpec.describe 'adding a veterinary', type: :system do
   it 'should create a veterinary' do
     visit new_veterinary_path
 
-    fill_in 'Name', with: veterinary_attributes[:name]
-    fill_in 'Phone', with: veterinary_attributes[:phone]
-    fill_in 'Email', with: veterinary_attributes[:email]
-    select veterinarian1.full_name, from: 'Veterinarians'
+    fill_in 'nombre', with: veterinary_attributes[:name]
+    fill_in 'teléfono', with: veterinary_attributes[:phone]
+    fill_in 'EMail', with: veterinary_attributes[:email]
+    select veterinarian1.full_name, from: 'veterinarios'
 
-    click_on('Create veterinaria')
+    click_on('guardar veterinaria')
 
-    expect(page).to have_content('Veterinary was successfully created')
+    expect(page).to have_content('veterinaria fue guardado correctamente')
     expect(page).to have_content(veterinary_attributes[:name])
     expect(page).to have_content(veterinary_attributes[:phone])
     expect(page).to have_content(veterinary_attributes[:email])

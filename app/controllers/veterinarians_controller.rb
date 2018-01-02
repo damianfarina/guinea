@@ -22,7 +22,7 @@ class VeterinariansController < ApplicationController
     respond_to do |format|
       if @veterinarian.save
         @veterinarian.veterinaries = @veterinaries
-        format.html { redirect_to @veterinarian, notice: 'Veterinarian was successfully created.' }
+        format.html { redirect_to @veterinarian, notice: t(:resource_created, scope: [:common], resource: Veterinarian.model_name.human) }
         format.json { render :show, status: :created, location: @veterinarian }
       else
         format.html { render :new }
@@ -36,7 +36,7 @@ class VeterinariansController < ApplicationController
     respond_to do |format|
       if @veterinarian.update(veterinarian_params)
         @veterinarian.veterinaries = @veterinaries
-        format.html { redirect_to @veterinarian, notice: 'Veterinarian was successfully updated.' }
+        format.html { redirect_to @veterinarian, notice: t(:resource_updated, scope: [:common], resource: Veterinarian.model_name.human) }
         format.json { render :show, status: :ok, location: @veterinarian }
       else
         format.html { render :edit }
@@ -48,7 +48,7 @@ class VeterinariansController < ApplicationController
   def destroy
     @veterinarian.destroy
     respond_to do |format|
-      format.html { redirect_to veterinarians_url, notice: 'Veterinarian was successfully destroyed.' }
+      format.html { redirect_to veterinarians_url, notice: t(:resource_destroyed, scope: [:common], resource: Veterinarian.model_name.human) }
       format.json { head :no_content }
     end
   end

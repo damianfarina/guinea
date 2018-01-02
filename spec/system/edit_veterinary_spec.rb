@@ -19,25 +19,25 @@ RSpec.describe 'editing a veterinary', type: :system do
     expect(page).to have_content(veterinarian1.full_name)
     expect(page).to have_content(veterinarian2.full_name)
 
-    click_on('Edit')
+    click_on('actualizar veterinaria')
 
     expect(current_path).to eq(edit_veterinary_path(veterinary))
-    expect(page).to have_select('Veterinarians', visible: false, selected: [
+    expect(page).to have_select('veterinarios', visible: false, selected: [
       veterinarian1.full_name, veterinarian2.full_name
     ])
 
-    fill_in 'Name', with: 'New name'
-    fill_in 'Phone', with: '321 321 321'
-    fill_in 'Email', with: 'new@email.com'
-    unselect veterinarian1.full_name, from: 'Veterinarians'
-    unselect veterinarian2.full_name, from: 'Veterinarians'
-    select veterinarian3.full_name, from: 'Veterinarians'
+    fill_in 'nombre', with: 'New name'
+    fill_in 'teléfono', with: '321 321 321'
+    fill_in 'EMail', with: 'new@email.com'
+    unselect veterinarian1.full_name, from: 'veterinarios'
+    unselect veterinarian2.full_name, from: 'veterinarios'
+    select veterinarian3.full_name, from: 'veterinarios'
 
 
-    click_on('Update veterinaria')
+    click_on('actualizar veterinaria')
 
     expect(current_path).to eq(veterinary_path(veterinary))
-    expect(page).to have_content('Veterinary was successfully updated')
+    expect(page).to have_content('veterinaria fue actualizado correctamente')
     expect(page).to have_content('New name')
     expect(page).to have_content('321 321 321')
     expect(page).to have_content('new@email.com')

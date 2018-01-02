@@ -50,9 +50,8 @@ body {
     "drawer  content";
   grid-template-columns: $drawer-width auto;
   grid-template-rows: $top-bar-height auto;
-}
+  overflow: hidden;
 
-body {
   margin: 0;
   padding: 0;
   font-size: 1.4rem;
@@ -167,22 +166,25 @@ textarea,
 select {
   width: 100%;
   box-sizing: border-box;
-  line-height: 1.42857143;
   border-radius: 2px;
   border: 1px solid $color-form-border;
-  padding: .5rem;
+  padding: calc(.5rem - 1px) .5rem calc(.5rem - 1px) .5rem;
   font-size: 1.2rem;
   line-height: 1.66666667;
+  vertical-align: top;
 }
 
 select {
-  padding: .5rem 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 button,
 input[type="submit"],
 .btn {
-  line-height: 2.7;
+  width: 100%;
+  line-height: 2.4;
+  font-size: 1.2rem;
   border: 1px solid transparent;
   border-radius: 2px;
   padding: 0 .5rem;
@@ -191,6 +193,11 @@ input[type="submit"],
 .btn {
   background-color: $color5;
   color: $color-text-inverted;
+  outline-color: red;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
 }
 
 .btn-primary {
@@ -198,7 +205,7 @@ input[type="submit"],
 }
 
 input:not([type="submit"]) {
-  line-height: 2.7;
+  line-height: 2.4;
   border-radius: 2px;
   border: 1px solid $color-form-border;
   padding: 0 .5rem;

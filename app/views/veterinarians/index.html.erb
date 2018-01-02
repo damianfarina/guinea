@@ -7,22 +7,18 @@
 <table>
   <thead>
     <tr>
-      <th>Full name</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th colspan="3"></th>
+      <th><%= Veterinarian.human_attribute_name(:full_name) %></th>
+      <th><%= Veterinarian.human_attribute_name(:phone) %></th>
+      <th><%= Veterinarian.human_attribute_name(:email) %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @veterinarians.each do |veterinarian| %>
       <tr>
-        <td><%= veterinarian.full_name %></td>
+        <td><%= link_to veterinarian.full_name, veterinarian %></td>
         <td><%= veterinarian.phone %></td>
         <td><%= veterinarian.email %></td>
-        <td><%= link_to 'Show', veterinarian %></td>
-        <td><%= link_to 'Edit', edit_veterinarian_path(veterinarian) %></td>
-        <td><%= link_to 'Destroy', veterinarian, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Veterinarian', new_veterinarian_path %>
+<%= link_to t(:new_resource, scope: [:common], resource: Veterinarian.model_name.human), new_veterinarian_path %>

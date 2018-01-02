@@ -1,5 +1,5 @@
 <% content_for :breadcrumbs do %>
-  <h3>Editing Veterinary</h3>
+  <h3 class="top-bar__title"><%= t(:edit_resource, scope: [:common], resource: Veterinary.model_name.human) %></h3>
 <% end %>
 
 <%= render 'form', veterinary: @veterinary %>

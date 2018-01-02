@@ -17,10 +17,10 @@ RSpec.describe 'veterinarians/show', type: :view do
 
   it 'renders attributes in <p>' do
     render
-    expect(rendered).to match(/Full Name/)
+    expect(rendered).to match(/nombre/)
     expect(rendered).to match(/261 666 5555/)
     expect(rendered).to match(/email@email.com/)
-    expect(rendered).to match(/Works at/)
+    expect(rendered).to match(/veterinarias/)
     expect(rendered).to match(/Help/)
     expect(rendered).to match(/Hospital/)
   end
