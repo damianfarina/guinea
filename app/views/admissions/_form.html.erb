@@ -12,6 +12,16 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :veterinarian %>
+    <%= form.collection_select :veterinarian_id, Veterinarian.all, :id, :full_name, { include_blank: true} , { id: 'admission_veterinarian' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :veterinary %>
+    <%= form.collection_select :veterinary_id, Veterinary.all, :id, :name, { include_blank: true} , { id: 'admission_veterinary' } %>
+  </div>
+
+  <div class="field">
     <%= form.label :petitioner_name %>
     <%= form.text_field :petitioner_name, id: :admission_petitioner_name %>
     <%= form.hidden_field :petitioner_id, id: :admission_petitioner_id %>
@@ -60,8 +70,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :months %>
-    <%= form.number_field :months, id: :admission_months %>
+    <%= form.label :age %>
+    <%= form.text_field :age, id: :admission_age %>
   </div>
 
   <div class="field">

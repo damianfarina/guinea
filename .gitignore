@@ -24,3 +24,6 @@
 .env
 
 spec/examples.txt
+/public/packs
+/public/packs-test
+/node_modules

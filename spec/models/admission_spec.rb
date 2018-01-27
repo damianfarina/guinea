@@ -1,28 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe Admission, type: :model do
-  let(:petitioner) do
-    Veterinarian.create!(
-      full_name: 'Montoto (Veterinary El Cachorro)',
-      phone: '261 666 5555',
-      email: 'montoto@elcachorro.com'
-    )
-  end
+  let(:veterinary) { create :veterinary }
+  let(:veterinarian) { create :veterinarian, veterinaries: [veterinary] }
 
   it 'should create an Admission' do
     admission = Admission.create(
-      petitioner_name: petitioner.name,
-      petitioner_id: petitioner.id,
-      petitioner_type: petitioner.class.to_s,
-      petitioner_phone: '261 666 5555',
-      petitioner_email: 'montoto@elcachorro.com',
+      veterinarian_id: veterinarian.id,
+      veterinary_id: veterinary.id,
+      petitioner_name: "#{veterinarian.full_name} (#{veterinary.name})",
+      petitioner_phone: veterinarian.phone,
+      petitioner_email: veterinarian.email,
       patient_name: 'Wanda',
-      species: 'canine',
-      sex: 'female',
+      species: :canine,
+      sex: :female,
       breed: 'Rottweiler',
-      months: '37',
-      owner_name: 'Karina Yonson',
+      age: '3a1m',
+      owner_name: 'Bibi',
       comments: 'Hello, do not forget this'
+    )
+    expect(admission.persisted?).to be_truthy
+  end
+
+  it 'should allow to create without veterinarian nor veterinary' do
+    admission = Admission.create(
+      petitioner_name: 'AAA',
+      species: :canine,
+      owner_name: 'BBB'
     )
     expect(admission.persisted?).to be_truthy
   end

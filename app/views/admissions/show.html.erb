@@ -6,7 +6,7 @@
 
 <p>
   <strong><%= Admission.human_attribute_name(:petitioner_name) %>:</strong>
-  <%= @admission.petitioner_name %>
+  <%= admission_petitioner_link(@admission) %>
 </p>
 
 <p>
@@ -26,12 +26,12 @@
 
 <p>
   <strong><%= Admission.human_attribute_name(:species) %>:</strong>
-  <%= @admission.species %>
+  <%= t(@admission.species, scope: [:activerecord, :attributes, :admission, :species]) %>
 </p>
 
 <p>
   <strong><%= Admission.human_attribute_name(:sex) %>:</strong>
-  <%= @admission.sex %>
+  <%= t(@admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %>
 </p>
 
 <p>
@@ -40,8 +40,8 @@
 </p>
 
 <p>
-  <strong><%= Admission.human_attribute_name(:months) %>:</strong>
-  <%= @admission.months %>
+  <strong><%= Admission.human_attribute_name(:age) %>:</strong>
+  <%= @admission.age %>
 </p>
 
 <p>

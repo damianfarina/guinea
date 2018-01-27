@@ -30,6 +30,8 @@ es:
         email: EMail
         veterinaries: veterinarias
       admission:
+        veterinarian: veterinario
+        veterinary: veterinaria
         petitioner_name: solicitante
         petitioner_phone: teléfono
         petitioner_email: EMail
@@ -38,16 +40,14 @@ es:
           one: especie
           other: especies
           canine: canino
-          feline: felino
-          feline: felino
           equine: equino
+          feline: felino
         sex:
           one: sexo
           other: sexos
-          male: masculino
           female: femenino
+          male: masculino
         breed: raza
-        months: meses
         age: edad
         owner_name: propietario
         comments: comentarios

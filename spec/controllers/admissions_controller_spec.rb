@@ -14,8 +14,7 @@ RSpec.describe AdmissionsController, type: :controller do
   let(:invalid_attributes) do
     valid_attributes.merge(
       petitioner_name: '',
-      petitioner_id: '',
-      petitioner_type: ''
+      veterinarian_id: ''
     )
   end
 
@@ -70,7 +69,7 @@ RSpec.describe AdmissionsController, type: :controller do
     context 'with valid params' do
       let(:new_admission_attributes) do
         attrs = valid_attributes.delete_if { |k, _v|
-          %i[petitioner_id petitioner_type].include?(k)
+          %i[veterinarian_id].include?(k)
         }
         attrs[:petitioner_name] = 'Damián Farina'
         attrs[:petitioner_email] = 'd@f.com'
@@ -86,15 +85,14 @@ RSpec.describe AdmissionsController, type: :controller do
         expect(new_petitioner).to be_present
         admission = Admission.first
         expect(admission.petitioner_name).to eq(new_petitioner.full_name)
-        expect(admission.petitioner_id).to eq(new_petitioner.id)
-        expect(admission.petitioner_type).to eq(new_petitioner.class.to_s)
+        expect(admission.veterinarian_id).to eq(new_petitioner.id)
         expect(admission.petitioner_phone).to eq(new_petitioner.phone)
         expect(admission.petitioner_email).to eq(new_petitioner.email)
         expect(admission.patient_name).to eq(new_admission_attributes[:patient_name])
         expect(admission.species).to eq(new_admission_attributes[:species].to_s)
         expect(admission.sex).to eq(new_admission_attributes[:sex])
         expect(admission.breed).to eq(new_admission_attributes[:breed])
-        expect(admission.months.to_s).to eq(new_admission_attributes[:months].to_s)
+        expect(admission.age).to eq(new_admission_attributes[:age])
         expect(admission.owner_name).to eq(new_admission_attributes[:owner_name])
         expect(admission.comments).to eq(new_admission_attributes[:comments])
       end
@@ -117,7 +115,7 @@ RSpec.describe AdmissionsController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) do
         {
-          months: 15
+          age: '3a11m'
         }
       end
 
@@ -125,7 +123,7 @@ RSpec.describe AdmissionsController, type: :controller do
         admission = create :admission
         put :update, params: {id: admission.to_param, admission: new_attributes}, session: valid_session
         admission.reload
-        expect(admission.months).to eq(15)
+        expect(admission.age).to eq('3a11m')
       end
 
       it 'redirects to the admission' do
