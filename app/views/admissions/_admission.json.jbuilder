@@ -12,6 +12,7 @@ json.extract! admission,
   :age,
   :owner_name,
   :comments,
+  :exams,
   :created_at,
   :updated_at
 json.url admission_url(admission, format: :json)

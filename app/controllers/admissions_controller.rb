@@ -27,7 +27,11 @@ class AdmissionsController < ApplicationController
 
     respond_to do |format|
       if @admission.save && @admission.veterinarian.save
-        format.html { redirect_to @admission, notice: t(:resource_created, scope: [:common], resource: Admission.model_name.human) }
+        format.html do
+          redirect_to \
+            @admission,
+            notice: t(:resource_created, scope: [:common], resource: Admission.model_name.human)
+        end
         format.json { render :show, status: :created, location: @admission }
       else
         format.html { render :new }
@@ -49,7 +53,11 @@ class AdmissionsController < ApplicationController
 
     respond_to do |format|
       if @admission.update(admission_params) && @admission.veterinarian.save
-        format.html { redirect_to @admission, notice: t(:resource_updated, scope: [:common], resource: Admission.model_name.human) }
+        format.html do
+          redirect_to \
+            @admission,
+            notice: t(:resource_updated, scope: [:common], resource: Admission.model_name.human)
+        end
         format.json { render :show, status: :ok, location: @admission }
       else
         format.html { render :edit }
@@ -61,7 +69,11 @@ class AdmissionsController < ApplicationController
   def destroy
     @admission.destroy
     respond_to do |format|
-      format.html { redirect_to admissions_url, notice: t(:resource_destroyed, scope: [:common], resource: Admission.model_name.human) }
+      format.html do
+        redirect_to \
+          admissions_url,
+          notice: t(:resource_destroyed, scope: [:common], resource: Admission.model_name.human)
+      end
       format.json { head :no_content }
     end
   end
@@ -85,7 +97,8 @@ private
       :breed,
       :age,
       :owner_name,
-      :comments
+      :comments,
+      exams: []
     )
   end
 end

@@ -17,7 +17,8 @@ RSpec.describe 'admissions/show', type: :view do
       breed: 'Black',
       age: '5m',
       owner_name: 'Zorro',
-      comments: 'Sargento'
+      comments: 'Sargento',
+      exams: %w[Urea Creatinina]
     ))
   end
 
@@ -33,5 +34,7 @@ RSpec.describe 'admissions/show', type: :view do
     expect(rendered).to match(/5m/)
     expect(rendered).to match(/Zorro/)
     expect(rendered).to match(/Sargento/)
+    expect(rendered).to match(/Urea/)
+    expect(rendered).to match(/Creatinina/)
   end
 end

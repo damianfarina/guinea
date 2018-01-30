@@ -9,7 +9,8 @@ RSpec.describe AdmissionsController, type: :controller do
     attributes_for :admission,
       petitioner: nil,
       petitioner_name: petitioner_attributes[:full_name],
-      petitioner_email: petitioner_attributes[:email]
+      petitioner_email: petitioner_attributes[:email],
+      exams: petitioner_attributes[:exams]
   end
   let(:invalid_attributes) do
     valid_attributes.merge(
@@ -38,6 +39,7 @@ RSpec.describe AdmissionsController, type: :controller do
     context 'all admissions' do
       it 'should return all admissions' do
         expect(json.map { |a| a['patient_name'] }).to include(admission.patient_name)
+        expect(json.map { |a| a['exams'] }).to include(admission.exams)
       end
     end
   end
@@ -74,6 +76,7 @@ RSpec.describe AdmissionsController, type: :controller do
         attrs[:petitioner_name] = 'Damián Farina'
         attrs[:petitioner_email] = 'd@f.com'
         attrs[:petitioner_phone] = '111 222 3333'
+        attrs[:exams] = ['Urea']
         attrs
       end
 
@@ -95,6 +98,7 @@ RSpec.describe AdmissionsController, type: :controller do
         expect(admission.age).to eq(new_admission_attributes[:age])
         expect(admission.owner_name).to eq(new_admission_attributes[:owner_name])
         expect(admission.comments).to eq(new_admission_attributes[:comments])
+        expect(admission.exams).to eq(new_admission_attributes[:exams])
       end
 
       it 'redirects to the created admission' do
@@ -115,7 +119,8 @@ RSpec.describe AdmissionsController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) do
         {
-          age: '3a11m'
+          age: '3a11m',
+          exams: ['New Exam']
         }
       end
 
@@ -124,6 +129,7 @@ RSpec.describe AdmissionsController, type: :controller do
         put :update, params: {id: admission.to_param, admission: new_attributes}, session: valid_session
         admission.reload
         expect(admission.age).to eq('3a11m')
+        expect(admission.exams).to eq(['New Exam'])
       end
 
       it 'redirects to the admission' do

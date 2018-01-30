@@ -69,3 +69,6 @@ Layout/SpaceInsideHashLiteralBraces:
 
 Style/SymbolArray:
   Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false

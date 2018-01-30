@@ -14,7 +14,8 @@ RSpec.describe 'admissions/edit', type: :view do
       sex: :male,
       breed: 'Rottweiler',
       age: '1a2m',
-      owner_name: 'John'
+      owner_name: 'John',
+      exams: %w[Urea]
     ))
   end
 
@@ -34,6 +35,7 @@ RSpec.describe 'admissions/edit', type: :view do
       assert_select 'input[name=?]', 'admission[age]'
       assert_select 'input[name=?]', 'admission[owner_name]'
       assert_select 'textarea[name=?]', 'admission[comments]'
+      assert_select 'input[name=?]', 'admission[exams][]'
     end
   end
 end

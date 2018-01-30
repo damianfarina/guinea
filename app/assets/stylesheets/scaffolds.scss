@@ -63,6 +63,12 @@ body {
   font-weight: 300;
 }
 
+@media screen and (min-width: 401px) and (max-width: 720px) {
+  body {
+    grid-template-columns: $drawer-width-small auto;
+  }
+}
+
 p, ol, ul, td {
   font-family: helvetica, verdana, arial, sans-serif;
   font-size: 1.4rem;
@@ -157,7 +163,7 @@ input {
   line-height: 1.66666667;
 }
 
-input:not([type="radio"]) {
+input:not([type="radio"]):not([type="checkbox"]) {
   width: 100%;
   box-sizing: border-box;
 }
@@ -177,6 +183,13 @@ select {
 select {
   padding-left: 0;
   padding-right: 0;
+  height: 3rem;
+}
+
+select,
+textarea,
+input[type="text"] {
+  background-color: $color-form-input;
 }
 
 button,
@@ -208,4 +221,51 @@ input:not([type="submit"]) {
   border-radius: 2px;
   border: 1px solid $color-form-border;
   padding: 0 .5rem;
+}
+
+fieldset {
+  min-width: min-content;
+  margin: 0 0 $default-spacing 0;
+  padding: $default-spacing;
+  padding-top: calc($default-spacing - 1px);
+  padding-bottom: calc($default-spacing - 1px);
+  border: 1px solid $color-border;
+  border-radius: $default-border-radius;
+}
+
+legend {
+  margin: 0;
+  padding: 0;
+  line-height: 1.42857143;
+  margin-bottom: 1px;
+}
+
+.exams-list-item {
+  margin-left: $default-spacing;
+}
+
+h3 {
+  font-size: 1.7rem;
+  line-height: 1.7647058824;
+  margin: 0 0 $default-spacing 0;
+}
+
+.category {
+  margin: 0 0 $default-spacing 0;
+  padding-bottom: calc(#{$default-spacing} - 1px);
+  border-bottom: 1px solid $color-border;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0 .5rem;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 2px;
+
+  &--primary {
+    color: $color-text-inverted;
+    background-color: $color1;
+  }
 }

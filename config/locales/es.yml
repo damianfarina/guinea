@@ -7,6 +7,12 @@ es:
     resource_created: "%{resource} fue guardado correctamente"
     resource_updated: "%{resource} fue actualizado correctamente"
     resource_destroyed: "%{resource} fue eliminado correctamente"
+    other:
+      one: otro
+      other: otros
+    exam:
+      one: examen
+      other: exámenes
   activerecord:
     models:
       admission:
@@ -32,10 +38,12 @@ es:
       admission:
         veterinarian: veterinario
         veterinary: veterinaria
-        petitioner_name: solicitante
+        petitioner: solicitante
+        petitioner_name: nombre
         petitioner_phone: teléfono
         petitioner_email: EMail
-        patient_name: paciente
+        patient: paciente
+        patient_name: nombre
         species:
           one: especie
           other: especies
@@ -51,6 +59,7 @@ es:
         age: edad
         owner_name: propietario
         comments: comentarios
+        exams: exámenes
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

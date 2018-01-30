@@ -12,6 +12,7 @@
       <th><%= Admission.human_attribute_name(:species) %></th>
       <th><%= Admission.human_attribute_name(:breed) %></th>
       <th><%= Admission.human_attribute_name(:sex) %></th>
+      <th><%= Admission.human_attribute_name(:exams) %></th>
     </tr>
   </thead>
 
@@ -23,6 +24,7 @@
         <td><%= t(admission.species, scope: [:activerecord, :attributes, :admission, :species]) %></td>
         <td><%= admission.breed %></td>
         <td><%= t(admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %></td>
+        <td class="exams-count"><%= admission.exams&.count || 0 %></td>
       </tr>
     <% end %>
   </tbody>

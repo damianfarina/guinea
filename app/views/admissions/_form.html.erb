@@ -11,78 +11,108 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :veterinarian %>
-    <%= form.collection_select :veterinarian_id, Veterinarian.all, :id, :full_name, { include_blank: true} , { id: 'admission_veterinarian' } %>
-  </div>
+  <fieldset class="petitioner">
+    <legend><%= t(:petitioner, scope: [:activerecord, :attributes, :admission]) %></legend>
+    <div class="field">
+      <%= form.label :veterinarian %>
+      <%= form.collection_select :veterinarian_id, Veterinarian.all, :id, :full_name, { include_blank: true} , { id: :admission_veterinarian } %>
+    </div>
 
-  <div class="field">
-    <%= form.label :veterinary %>
-    <%= form.collection_select :veterinary_id, Veterinary.all, :id, :name, { include_blank: true} , { id: 'admission_veterinary' } %>
-  </div>
+    <div class="field">
+      <%= form.label :veterinary %>
+      <%= form.collection_select :veterinary_id, Veterinary.all, :id, :name, { include_blank: true} , { id: :admission_veterinary } %>
+    </div>
 
-  <div class="field">
-    <%= form.label :petitioner_name %>
-    <%= form.text_field :petitioner_name, id: :admission_petitioner_name %>
-    <%= form.hidden_field :petitioner_id, id: :admission_petitioner_id %>
-    <%= form.hidden_field :petitioner_type, id: :admission_petitioner_type %>
-  </div>
+    <div class="field">
+      <%= form.label :petitioner_name %>
+      <%= form.text_field :petitioner_name, id: :admission_petitioner_name %>
+    </div>
 
-  <div class="field">
-    <%= form.label :petitioner_phone %>
-    <%= form.text_field :petitioner_phone, id: :admission_petitioner_phone %>
-  </div>
+    <div class="field">
+      <%= form.label :petitioner_phone %>
+      <%= form.text_field :petitioner_phone, id: :admission_petitioner_phone %>
+    </div>
 
-  <div class="field">
-    <%= form.label :petitioner_email %>
-    <%= form.text_field :petitioner_email, id: :admission_petitioner_email %>
-  </div>
+    <div class="field">
+      <%= form.label :petitioner_email %>
+      <%= form.text_field :petitioner_email, id: :admission_petitioner_email %>
+    </div>
+  </fieldset>
 
-  <div class="field">
-    <%= form.label :patient_name %>
-    <%= form.text_field :patient_name, id: :admission_patient_name %>
-  </div>
+  <fieldset class="patient">
+    <legend><%= t(:patient, scope: [:activerecord, :attributes, :admission]) %></legend>
 
-  <div class="field">
-    <%= form.label :species %>
-    <%= form.collection_radio_buttons :species, Admission.species, :first, :first do |b| %>
-      <%= b.label(class: "radio_button") do %>
-        <%= b.radio_button(class: "radio_button") %>
-        <%= t(b.text, scope: [:activerecord, :attributes, :admission, :species]) %>
+    <div class="field">
+      <%= form.label :patient_name %>
+      <%= form.text_field :patient_name, id: :admission_patient_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :species %>
+      <%= form.collection_radio_buttons :species, Admission.species, :first, :first do |b| %>
+        <%= b.label(class: "radio_button") do %>
+          <%= b.radio_button(class: "radio_button") %>
+          <%= t(b.text, scope: [:activerecord, :attributes, :admission, :species]) %>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :sex %>
-    <%= form.collection_radio_buttons :sex, Admission.sexes, :first, :first do |b| %>
-      <%= b.label(class: "radio_button") do %>
-        <%= b.radio_button(class: "radio_button") %>
-        <%= t(b.text, scope: [:activerecord, :attributes, :admission, :sex]) %>
+    <div class="field">
+      <%= form.label :sex %>
+      <%= form.collection_radio_buttons :sex, Admission.sexes, :first, :first do |b| %>
+        <%= b.label(class: "radio_button") do %>
+          <%= b.radio_button(class: "radio_button") %>
+          <%= t(b.text, scope: [:activerecord, :attributes, :admission, :sex]) %>
+        <% end %>
       <% end %>
-    <% end %>
 
-  </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :breed %>
-    <%= form.text_field :breed, id: :admission_breed %>
-  </div>
+    <div class="field">
+      <%= form.label :breed %>
+      <%= form.text_field :breed, id: :admission_breed %>
+    </div>
 
-  <div class="field">
-    <%= form.label :age %>
-    <%= form.text_field :age, id: :admission_age %>
-  </div>
+    <div class="field">
+      <%= form.label :age %>
+      <%= form.text_field :age, id: :admission_age %>
+    </div>
 
-  <div class="field">
-    <%= form.label :owner_name %>
-    <%= form.text_field :owner_name, id: :admission_owner_name %>
-  </div>
+    <div class="field">
+      <%= form.label :owner_name %>
+      <%= form.text_field :owner_name, id: :admission_owner_name %>
+    </div>
+  </fieldset>
 
-  <div class="field">
-    <%= form.label :comments %>
-    <%= form.text_area :comments, id: :admission_comments, rows: 5 %>
-  </div>
+  <fieldset class="others">
+    <legend><%= t(:other, scope: [:common], count: 2) %></legend>
+    <div class="field">
+      <%= form.label :comments %>
+      <%= form.text_area :comments, id: :admission_comments, rows: 5 %>
+    </div>
+  </fieldset>
+
+  <fieldset class="exams">
+    <legend><%= t(:exam, scope: [:common], count: 2) %></legend>
+    <div class="field">
+      <% Exam.category_names.each do |category_name| %>
+        <div class="category">
+          <h3>
+            <%= label_tag nil, class: 'category-list-item' do %>
+              <%= check_box_tag(nil, category_name) %>
+              <%= category_name %>
+            <% end %>
+          </h3>
+          <% Exam.for_category(category_name).each do |exam| %>
+            <%= label_tag nil, class: 'exams-list-item' do %>
+              <%= check_box_tag('admission[exams][]', exam) %>
+              <%= exam %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </fieldset>
 
   <div class="actions">
     <%= form.button class: 'btn btn-primary' %>

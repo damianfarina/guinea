@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180126215737) do
+ActiveRecord::Schema.define(version: 20180128013930) do
 
   create_table "admissions", force: :cascade do |t|
     t.string "petitioner_name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20180126215737) do
     t.integer "veterinarian_id"
     t.integer "veterinary_id"
     t.string "age"
+    t.string "exams"
     t.index ["veterinarian_id"], name: "index_admissions_on_veterinarian_id"
     t.index ["veterinary_id"], name: "index_admissions_on_veterinary_id"
   end

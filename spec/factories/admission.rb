@@ -10,6 +10,7 @@ FactoryBot.define do
     age { "#{rand(1..14)}a#{rand(1..12)}m" }
     owner_name { Faker::Name.name }
     comments { Faker::Dog.meme_phrase }
+    exams %w[Urea Creatinina]
     completed false
 
     factory :admission_completed do

@@ -54,5 +54,14 @@
   <%= @admission.comments %>
 </p>
 
+<p>
+  <strong><%= Admission.human_attribute_name(:exams) %>:</strong>
+  <ul>
+    <% @admission.exams&.each do |exam| %>
+      <%= tag.li exam %>
+    <% end %>
+  </ul>
+</p>
+
 <%= link_to 'Edit', edit_admission_path(@admission) %> |
 <%= link_to 'Back', admissions_path %>
