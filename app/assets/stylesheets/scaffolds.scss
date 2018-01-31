@@ -1,5 +1,5 @@
 @import 'variables';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+// @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
 
 html {
   font-size: 10px;
@@ -107,10 +107,6 @@ div {
   &.field, &.actions {
     margin-bottom: 1rem;
   }
-}
-
-#notice {
-  color: green;
 }
 
 .field_with_errors {
@@ -267,5 +263,73 @@ h3 {
   &--primary {
     color: $color-text-inverted;
     background-color: $color1;
+  }
+}
+
+.flash {
+  background-color: $color3;
+  color: $color-body;
+  padding: 1rem 1.5rem;
+  margin-bottom: $default-spacing;
+  border-radius: $default-border-radius;
+  a {
+    color: white;
+  }
+
+  &--notice {
+    background-color: $color5;
+    @extend %dissapear;
+  }
+  &--success {
+    background-color: $color1;
+    @extend %dissapear;
+  }
+  &--error {
+    background-color: $color2;
+  }
+  &--alert {
+    color: $color-text;
+    font-weight: 500;
+    background-color: $color8;
+
+    a {
+      color: $color-text;
+    }
+  }
+
+  &__close {
+    position: relative;
+    right: 0;
+    margin-left: $default-spacing;
+
+    background-color: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    width: auto;
+    color: $color-body;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__container {
+    position: fixed;
+    left: 2rem;
+    bottom: 1rem;
+  }
+}
+
+%dissapear {
+  animation: cssAnimationDissapear 0s ease-in 5s forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimationDissapear {
+  to {
+    width:0;
+    height:0;
+    padding: 0;
+    margin: 0;
+    overflow:hidden;
   }
 }
