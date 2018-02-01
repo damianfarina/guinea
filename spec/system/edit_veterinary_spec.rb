@@ -19,7 +19,7 @@ RSpec.describe 'editing a veterinary', type: :system do
     expect(page).to have_content(veterinarian1.full_name)
     expect(page).to have_content(veterinarian2.full_name)
 
-    click_on('actualizar veterinaria')
+    click_on('actualizar')
 
     expect(current_path).to eq(edit_veterinary_path(veterinary))
     expect(page).to have_select('veterinarios', visible: false, selected: [

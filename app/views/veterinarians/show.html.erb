@@ -1,5 +1,7 @@
 <% content_for :breadcrumbs do %>
-  <h3 class="top-bar__title"><%= Veterinarian.model_name.human %></h3>
+  <%= link_to Veterinarian.model_name.human(count: 2), veterinarians_path, { class: 'breadcrumbs__item' } %>
+  <span class="breadcrumbs__separator"></span>
+  <h3 class="breadcrumbs__item"><%= @veterinarian.full_name %></h3>
 <% end %>
 
 <p>
@@ -22,5 +24,6 @@
   <%= @veterinarian.veterinaries.map{|v| link_to v.name, v}.join(', ').html_safe %>
 </p>
 
-<%= link_to t(:edit_resource, scope: [:common], resource: Veterinarian.model_name.human), edit_veterinarian_path(@veterinarian) %> |
+<%= link_to image_tag('icons/ic_mode_edit_white_24px.svg', alt: t(:edit_resource, scope: [:common], resource: Veterinarian.model_name.human)), edit_veterinarian_path(@veterinarian), { class: 'btn btn__floating' } %>
+
 <%= link_to t(:destroy_resource, scope: [:common], resource: Veterinarian.model_name.human), @veterinarian, method: :delete, data: { confirm: 'Are you sure?' } %>

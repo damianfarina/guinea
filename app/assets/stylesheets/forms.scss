@@ -1,0 +1,163 @@
+@import 'variables';
+
+div {
+  &.field, &.actions {
+    margin-bottom: 1rem;
+  }
+}
+
+.field_with_errors {
+  padding: .2rem;
+  background-color: $color-danger;
+  color: $color-text-inverted;
+  display: table;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+
+  & + .field_with_errors {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+}
+
+#error_explanation {
+  width: 45rem;
+  border: 2px solid $color-danger;
+  border-radius: 2px;
+  padding: .7rem .7rem 0;
+  margin-bottom: 2rem;
+
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: .5rem .5rem .5rem 1.5rem;
+    font-size: 1.2rem;
+    line-height: 1.66666667;
+    margin: -.7rem -.7rem 0;
+    background-color: $color2;
+    color: $color-text-inverted;
+  }
+
+  ul li {
+    font-size: 1.2rem;
+    line-height: 1.66666667;
+    list-style: square;
+  }
+}
+
+label {
+  display: block;
+}
+
+input {
+  font-size: 1.2rem;
+  line-height: 1.66666667;
+}
+
+input:not([type="radio"]):not([type="checkbox"]) {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid $color-form-border;
+  padding: calc(.5rem - 1px) .5rem calc(.5rem - 1px) .5rem;
+  font-size: 1.2rem;
+  line-height: 1.66666667;
+  vertical-align: top;
+}
+
+select {
+  padding-left: 0;
+  padding-right: 0;
+  height: 3rem;
+}
+
+select[multiple] {
+  height: auto;
+}
+
+select,
+textarea,
+input[type="text"] {
+  background-color: $color-form-input;
+}
+
+button,
+input[type="submit"],
+.btn {
+  width: 100%;
+  line-height: 2.4;
+  font-size: 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 0 .5rem;
+}
+
+.btn {
+  background-color: $color5;
+  color: $color-text-inverted;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
+
+  &.btn-primary {
+    background-color: $color1;
+  }
+
+  &__floating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color9;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 4rem;
+    height: 4rem;
+    line-height: 3.33333334;
+    padding: 0;
+    background-color: $color1;
+    border-radius: 50%;
+    transition: background-color .3s;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    position: fixed;
+    right: $default-spacing * 2;
+    bottom: $default-spacing * 2;
+
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  }
+}
+
+input:not([type="submit"]) {
+  line-height: 2.4;
+  border-radius: 2px;
+  border: 1px solid $color-form-border;
+  padding: 0 .5rem;
+}
+
+fieldset {
+  min-width: min-content;
+  margin: 0 0 $default-spacing 0;
+  padding: $default-spacing;
+  padding-top: calc($default-spacing - 1px);
+  padding-bottom: calc($default-spacing - 1px);
+  border: 1px solid $color-border;
+  border-radius: $default-border-radius;
+}
+
+legend {
+  margin: 0;
+  padding: 0;
+  line-height: 1.42857143;
+  margin-bottom: 1px;
+}

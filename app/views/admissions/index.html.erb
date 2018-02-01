@@ -1,5 +1,5 @@
 <% content_for :breadcrumbs do %>
-  <h3 class="top-bar__title"><%= Admission.model_name.human(count: 2) %></h3>
+  <h3 class="breadcrumbs__item breadcrumbs__item--active"><%= Admission.model_name.human(count: 2) %></h3>
 <% end %>
 
 <table>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to t(:new_resource, scope: [:common], resource: Admission.model_name.human), new_admission_path %>
+<%= link_to image_tag('icons/ic_add_white_24px.svg', alt: t(:new_resource, scope: [:common], resource: Admission.model_name.human)), new_admission_path, { class: 'btn btn__floating' } %>

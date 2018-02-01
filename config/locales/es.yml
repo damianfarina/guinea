@@ -1,8 +1,8 @@
 es:
   common:
-    new_resource: nueva %{resource}
+    new_resource: nueva
     create_resource: guardar %{resource}
-    edit_resource: actualizar %{resource}
+    edit_resource: actualizar
     destroy_resource: eliminar %{resource}
     resource_created: "%{resource} fue guardado correctamente"
     resource_updated: "%{resource} fue actualizado correctamente"

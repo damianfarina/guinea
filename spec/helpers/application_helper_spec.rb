@@ -12,7 +12,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
     expect(helper.nav_item_to('Admissions', admissions_path)).not_to include('nav__item--active')
 
-    allow(helper).to receive(:current_page?).and_return(true)
-    expect(helper.nav_item_to('Veterinaries', veterinaries_path)).to include('nav__item--active')
+    allow(helper).to receive(:request).and_return double(original_fullpath: '/main/nested')
+    expect(helper.nav_item_to('Main Route', '/main')).to include('nav__item--active')
   end
 end

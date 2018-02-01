@@ -9,6 +9,10 @@
   display: flex;
   align-items: center;
 
+  * {
+    z-index: 50;
+  }
+
   &:after {
     box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
     content: '';
@@ -20,15 +24,10 @@
     z-index: 49;
   }
 
-  &__title {
-    font-weight: 300;
-    font-size: 1.9rem;
-    line-height: 2.10526316;
-    margin: 0;
-    padding: 0;
-
-    &::first-letter {
-      text-transform: capitalize;
+  &__logo {
+    margin-right: $default-spacing / 2;
+    img {
+      height: 2rem;
     }
   }
 }

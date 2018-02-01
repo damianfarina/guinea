@@ -1,0 +1,70 @@
+@import 'variables';
+// @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+html {
+  font-size: 10px;
+  transition: .2s;
+  height: 100%;
+}
+
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media screen and (min-width: 401px) and (max-width: 720px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1280px) {
+  html {
+    font-size: 11px;
+  }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 1441px) and (max-width: 1500px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 1501px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  display: grid;
+  grid-template-areas:
+    "top-bar top-bar"
+    "drawer  content";
+  grid-template-columns: $drawer-width auto;
+  grid-template-rows: $top-bar-height auto;
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1.42857143;
+  height: 100%;
+  background-color: $color-body;
+  color: $color-text;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+@media screen and (max-width: 720px) {
+  body {
+    grid-template-columns: $drawer-width-small auto;
+  }
+}

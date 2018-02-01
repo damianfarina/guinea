@@ -1,8 +1,9 @@
 <% content_for :breadcrumbs do %>
-  <h3 class="top-bar__title"><%= t(:edit_resource, scope: [:common], resource: Veterinary.model_name.human) %></h3>
+  <%= link_to Veterinary.model_name.human(count: 2), veterinaries_path, { class: 'breadcrumbs__item' } %>
+  <span class="breadcrumbs__separator"></span>
+  <%= link_to @veterinary.name, @veterinary, { class: 'breadcrumbs__item' } %>
+  <span class="breadcrumbs__separator"></span>
+  <h3 class="breadcrumbs__item breadcrumbs__item--active"><%= t(:edit_resource, scope: [:common], resource: Veterinary.model_name.human) %></h3>
 <% end %>
 
 <%= render 'form', veterinary: @veterinary %>
-
-<%= link_to 'Show', @veterinary %> |
-<%= link_to 'Back', veterinaries_path %>
