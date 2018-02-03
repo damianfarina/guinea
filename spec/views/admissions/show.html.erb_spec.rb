@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'admissions/show', type: :view do
   let(:veterinary) { create :veterinary }
   let(:veterinarian) { create :veterinarian, veterinaries: [veterinary] }
+  let(:exams) { }
 
   before(:each) do
     @admission = assign(:admission, Admission.create!(
@@ -18,26 +19,39 @@ RSpec.describe 'admissions/show', type: :view do
       age: '5m',
       owner_name: 'Zorro',
       comments: 'Sargento',
-      exams: %w[Urea Hepatozoon]
+      exams: exams
     ))
   end
 
-  it 'renders admission attributes' do
-    render
-    expect(rendered).to have_selector('a', text: veterinarian.full_name)
-    expect(rendered).to have_selector('a', text: veterinary.name)
-    expect(rendered).to match(/#{veterinarian.phone}/)
-    expect(rendered).to match(/#{veterinarian.email}/)
-    expect(rendered).to match(/Patient Name/)
-    expect(rendered).to match(/equino/)
-    expect(rendered).to match(/femenino/)
-    expect(rendered).to match(/Black/)
-    expect(rendered).to match(/5m/)
-    expect(rendered).to match(/Zorro/)
-    expect(rendered).to match(/Sargento/)
-    expect(rendered).to match(/Bioquímica/)
-    expect(rendered).to match(/Urea/)
-    expect(rendered).to match(/Hemoparásitos/)
-    expect(rendered).to match(/Hepatozoon/)
+  describe 'with exams' do
+    let(:exams) { %w[Urea Hepatozoon] }
+
+    it 'renders admission attributes' do
+      render
+      expect(rendered).to have_selector('a', text: veterinarian.full_name)
+      expect(rendered).to have_selector('a', text: veterinary.name)
+      expect(rendered).to match(/#{veterinarian.phone}/)
+      expect(rendered).to match(/#{veterinarian.email}/)
+      expect(rendered).to match(/Patient Name/)
+      expect(rendered).to match(/equino/)
+      expect(rendered).to match(/femenino/)
+      expect(rendered).to match(/Black/)
+      expect(rendered).to match(/5m/)
+      expect(rendered).to match(/Zorro/)
+      expect(rendered).to match(/Sargento/)
+      expect(rendered).to match(/Bioquímica/)
+      expect(rendered).to match(/Urea/)
+      expect(rendered).to match(/Hemoparásitos/)
+      expect(rendered).to match(/Hepatozoon/)
+    end
+  end
+
+  describe 'without exams' do
+    let(:exams) { }
+
+    it 'renders admission attributes' do
+      render
+      expect(rendered).to have_selector('.exams .list > *', count: 0)
+    end
   end
 end

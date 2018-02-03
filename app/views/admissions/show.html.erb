@@ -74,7 +74,7 @@
 <div class="exams card">
   <div class="card__title"><%= t(:exam, scope: [:common], count: 2) %></div>
   <% Exam.category_names.each do |category_name| -%>
-    <% next unless @admission.exams.any? { |exam_name| Exam.new(exam_name).in_category?(category_name)} %>
+    <% next unless @admission.exams&.any? { |exam_name| Exam.new(exam_name).in_category?(category_name)} %>
     <div class="list">
       <div class="list__title"><%= category_name %></div>
       <% Exam.for_category_name(category_name).each do |exam_name| -%>

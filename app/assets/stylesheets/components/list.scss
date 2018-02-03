@@ -15,5 +15,10 @@
     padding-bottom: calc(#{$default-spacing / 2} - 1px);
     padding-left: $default-spacing;
     padding-right: $default-spacing;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: $default-spacing / 2;
+    }
   }
 }

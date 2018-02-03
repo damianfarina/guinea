@@ -98,13 +98,13 @@
         <div class="category">
           <h3>
             <%= label_tag nil, class: 'category-list-item' do %>
-              <%= check_box_tag(nil, category_name) %>
+              <%= check_box_tag(nil, category_name, Exam.for_category_name(category_name).all? { |exam| @admission.exams&.include?(exam) }) %>
               <%= category_name %>
             <% end %>
           </h3>
           <% Exam.for_category_name(category_name).each do |exam| %>
             <%= label_tag nil, class: 'exams-list-item' do %>
-              <%= check_box_tag('admission[exams][]', exam) %>
+              <%= check_box_tag('admission[exams][]', exam, @admission.exams&.include?(exam)) %>
               <%= exam %>
             <% end %>
           <% end %>
