@@ -18,13 +18,14 @@ RSpec.describe 'admissions/show', type: :view do
       age: '5m',
       owner_name: 'Zorro',
       comments: 'Sargento',
-      exams: %w[Urea Creatinina]
+      exams: %w[Urea Hepatozoon]
     ))
   end
 
   it 'renders admission attributes' do
     render
     expect(rendered).to have_selector('a', text: veterinarian.full_name)
+    expect(rendered).to have_selector('a', text: veterinary.name)
     expect(rendered).to match(/#{veterinarian.phone}/)
     expect(rendered).to match(/#{veterinarian.email}/)
     expect(rendered).to match(/Patient Name/)
@@ -34,7 +35,9 @@ RSpec.describe 'admissions/show', type: :view do
     expect(rendered).to match(/5m/)
     expect(rendered).to match(/Zorro/)
     expect(rendered).to match(/Sargento/)
+    expect(rendered).to match(/Bioquímica/)
     expect(rendered).to match(/Urea/)
-    expect(rendered).to match(/Creatinina/)
+    expect(rendered).to match(/Hemoparásitos/)
+    expect(rendered).to match(/Hepatozoon/)
   end
 end

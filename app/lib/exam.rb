@@ -5,7 +5,7 @@ class Exam
       hierarchy.map { |category| category[:name] }
     end
 
-    def for_category(category_name)
+    def for_category_name(category_name)
       category = hierarchy.find { |cat| cat[:name] == category_name }
       category[:exams]
     end

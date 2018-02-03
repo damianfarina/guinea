@@ -1,4 +1,30 @@
 @import 'variables';
+@import 'type';
+
+.form {
+  &__label {
+    @extend %upcase-first-letter;
+  }
+
+  &__fieldset {
+    min-width: min-content;
+    margin: 0 0 $default-spacing 0;
+    padding: $default-spacing;
+    padding-top: calc(#{$default-spacing} - 1px);
+    padding-bottom: calc(#{$default-spacing} - 1px);
+    border: 1px solid $color-border;
+    border-radius: $default-border-radius;
+    background-color: $color9;
+  }
+
+  &__fieldset-label {
+    margin: 0;
+    padding: 0;
+    line-height: 1.42857143;
+    margin-bottom: 1px;
+    @extend %upcase-first-letter;
+  }
+}
 
 div {
   &.field, &.actions {
@@ -23,7 +49,6 @@ div {
 }
 
 #error_explanation {
-  width: 45rem;
   border: 2px solid $color-danger;
   border-radius: 2px;
   padding: .7rem .7rem 0;
@@ -143,21 +168,4 @@ input:not([type="submit"]) {
   border-radius: 2px;
   border: 1px solid $color-form-border;
   padding: 0 .5rem;
-}
-
-fieldset {
-  min-width: min-content;
-  margin: 0 0 $default-spacing 0;
-  padding: $default-spacing;
-  padding-top: calc($default-spacing - 1px);
-  padding-bottom: calc($default-spacing - 1px);
-  border: 1px solid $color-border;
-  border-radius: $default-border-radius;
-}
-
-legend {
-  margin: 0;
-  padding: 0;
-  line-height: 1.42857143;
-  margin-bottom: 1px;
 }

@@ -11,8 +11,8 @@
     </div>
   <% end %>
 
-  <fieldset class="petitioner">
-    <legend><%= t(:petitioner, scope: [:activerecord, :attributes, :admission]) %></legend>
+  <fieldset class="petitioner form__fieldset">
+    <legend class="form__fieldset-label"><%= t(:petitioner, scope: [:activerecord, :attributes, :admission]) %></legend>
     <div class="field">
       <%= form.label :veterinarian %>
       <%= form.collection_select :veterinarian_id, Veterinarian.all, :id, :full_name, { include_blank: true} , { id: :admission_veterinarian } %>
@@ -39,8 +39,8 @@
     </div>
   </fieldset>
 
-  <fieldset class="patient">
-    <legend><%= t(:patient, scope: [:activerecord, :attributes, :admission]) %></legend>
+  <fieldset class="patient form__fieldset">
+    <legend class="form__fieldset-label"><%= t(:patient, scope: [:activerecord, :attributes, :admission]) %></legend>
 
     <div class="field">
       <%= form.label :patient_name %>
@@ -65,7 +65,6 @@
           <%= t(b.text, scope: [:activerecord, :attributes, :admission, :sex]) %>
         <% end %>
       <% end %>
-
     </div>
 
     <div class="field">
@@ -84,16 +83,16 @@
     </div>
   </fieldset>
 
-  <fieldset class="others">
-    <legend><%= t(:other, scope: [:common], count: 2) %></legend>
+  <fieldset class="others form__fieldset">
+    <legend class="form__fieldset-label"><%= t(:other, scope: [:common], count: 2) %></legend>
     <div class="field">
       <%= form.label :comments %>
       <%= form.text_area :comments, id: :admission_comments, rows: 5 %>
     </div>
   </fieldset>
 
-  <fieldset class="exams">
-    <legend><%= t(:exam, scope: [:common], count: 2) %></legend>
+  <fieldset class="exams form__fieldset">
+    <legend class="form__fieldset-label"><%= t(:exam, scope: [:common], count: 2) %></legend>
     <div class="field">
       <% Exam.category_names.each do |category_name| %>
         <div class="category">
@@ -103,7 +102,7 @@
               <%= category_name %>
             <% end %>
           </h3>
-          <% Exam.for_category(category_name).each do |exam| %>
+          <% Exam.for_category_name(category_name).each do |exam| %>
             <%= label_tag nil, class: 'exams-list-item' do %>
               <%= check_box_tag('admission[exams][]', exam) %>
               <%= exam %>

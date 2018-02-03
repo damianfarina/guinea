@@ -4,63 +4,87 @@
   <h3 class="breadcrumbs__item"><%= @admission.id %></h3>
 <% end %>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:petitioner_name) %>:</strong>
-  <%= admission_petitioner_link(@admission) %>
-</p>
+<div class="petitioner card">
+  <div class="card__title"><%= t(:petitioner, scope: [:activerecord, :attributes, :admission]) %></div>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:petitioner_phone) %>:</strong>
-  <%= @admission.petitioner_phone %>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:petitioner_name) %>:</label>
+    <%= admission_petitioner_link(@admission) %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:petitioner_email) %>:</strong>
-  <%= @admission.petitioner_email %>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:petitioner_phone) %>:</label>
+    <%= @admission.petitioner_phone %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:patient_name) %>:</strong>
-  <%= @admission.patient_name %>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:petitioner_email) %>:</label>
+    <%= @admission.petitioner_email %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:species) %>:</strong>
-  <%= t(@admission.species, scope: [:activerecord, :attributes, :admission, :species]) %>
-</p>
+  <% if @admission.veterinary.present? %>
+    <p>
+      <label class="form__label"><%= Admission.human_attribute_name(:veterinary) %>:</label>
+      <%= link_to @admission.veterinary_name, @admission.veterinary %>
+    </p>
+  <% end %>
+</div>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:sex) %>:</strong>
-  <%= t(@admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %>
-</p>
+<div class="patient card">
+  <div class="card__title"><%= t(:patient, scope: [:activerecord, :attributes, :admission]) %></div>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:patient_name) %>:</label>
+    <%= @admission.patient_name %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:breed) %>:</strong>
-  <%= @admission.breed %>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:species) %>:</label>
+    <%= t(@admission.species, scope: [:activerecord, :attributes, :admission, :species]) %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:age) %>:</strong>
-  <%= @admission.age %>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:sex) %>:</label>
+    <%= t(@admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:owner_name) %>:</strong>
-  <%= @admission.owner_name %>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:breed) %>:</label>
+    <%= @admission.breed %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:comments) %>:</strong>
-  <%= @admission.comments %>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:age) %>:</label>
+    <%= @admission.age %>
+  </p>
 
-<p>
-  <strong><%= Admission.human_attribute_name(:exams) %>:</strong>
-  <ul>
-    <% @admission.exams&.each do |exam| %>
-      <%= tag.li exam %>
-    <% end %>
-  </ul>
-</p>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:owner_name) %>:</label>
+    <%= @admission.owner_name %>
+  </p>
+</div>
+
+<div class="others card">
+  <div class="card__title"><%= t(:other, scope: [:common], count: 2) %></div>
+  <p>
+    <label class="form__label"><%= Admission.human_attribute_name(:comments) %>:</label>
+    <%= @admission.comments %>
+  </p>
+</div>
+
+<div class="exams card">
+  <div class="card__title"><%= t(:exam, scope: [:common], count: 2) %></div>
+  <% Exam.category_names.each do |category_name| -%>
+    <% next unless @admission.exams.any? { |exam_name| Exam.new(exam_name).in_category?(category_name)} %>
+    <div class="list">
+      <div class="list__title"><%= category_name %></div>
+      <% Exam.for_category_name(category_name).each do |exam_name| -%>
+        <% next unless @admission.exams.include? exam_name -%>
+        <div class="list__item">
+          <%= exam_name %>
+        </div>
+      <% end -%>
+    </div>
+  <% end -%>
+</div>
 
 <%= link_to image_tag('icons/ic_mode_edit_white_24px.svg', alt: t(:edit_resource, scope: [:common], resource: Admission.model_name.human)), edit_admission_path(@admission), { class: 'btn btn__floating' } %>

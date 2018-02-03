@@ -2,7 +2,7 @@
 
 .content {
   grid-area: content;
-  padding: ($default-spacing * 2) $default-spacing;
+  padding: $default-spacing;
   overflow: auto;
 }
 

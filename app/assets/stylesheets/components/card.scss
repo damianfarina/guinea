@@ -1,0 +1,19 @@
+@import 'variables';
+@import 'type';
+
+.card {
+  background-color: $color9;
+  padding: calc(#{$default-spacing} - 1px) $default-spacing;
+  margin-bottom: $default-spacing;
+  border-radius: $default-border-radius;
+  border: 1px solid $color-border;
+
+  &__title {
+    display: block;
+    font-size: 1.7rem;
+    line-height: 1.76470588;
+    margin-bottom: $default-spacing;
+    font-weight: 500;
+    @extend %upcase-first-letter;
+  }
+}
