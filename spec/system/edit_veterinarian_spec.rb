@@ -21,7 +21,6 @@ RSpec.describe 'editing a veterinarian', type: :system do
 
     click_on('actualizar')
 
-
     expect(current_path).to eq(edit_veterinarian_path(veterinarian))
     expect(page).to have_select('veterinarias', visible: false, selected: [
       veterinary1.name, veterinary2.name

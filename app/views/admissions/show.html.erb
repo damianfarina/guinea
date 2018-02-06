@@ -1,74 +1,74 @@
 <% content_for :breadcrumbs do %>
   <%= link_to Admission.model_name.human(count: 2), admissions_path, { class: 'breadcrumbs__item' } %>
-  <span class="breadcrumbs__separator"></span>
+  <i class="breadcrumbs__separator icon">chevron_right</i>
   <h3 class="breadcrumbs__item"><%= @admission.id %></h3>
 <% end %>
 
 <div class="petitioner card">
   <div class="card__title"><%= t(:petitioner, scope: [:activerecord, :attributes, :admission]) %></div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:petitioner_name) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:petitioner_name) %></label>
     <%= admission_petitioner_link(@admission) %>
-  </p>
+  </div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:petitioner_phone) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:petitioner_phone) %></label>
     <%= @admission.petitioner_phone %>
-  </p>
+  </div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:petitioner_email) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:petitioner_email) %></label>
     <%= @admission.petitioner_email %>
-  </p>
+  </div>
 
   <% if @admission.veterinary.present? %>
-    <p>
-      <label class="form__label"><%= Admission.human_attribute_name(:veterinary) %>:</label>
+    <div class="card__item">
+      <label class="card__label"><%= Admission.human_attribute_name(:veterinary) %></label>
       <%= link_to @admission.veterinary_name, @admission.veterinary %>
-    </p>
+    </div>
   <% end %>
 </div>
 
 <div class="patient card">
   <div class="card__title"><%= t(:patient, scope: [:activerecord, :attributes, :admission]) %></div>
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:patient_name) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:patient_name) %></label>
     <%= @admission.patient_name %>
-  </p>
+  </div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:species) %>:</label>
-    <%= t(@admission.species, scope: [:activerecord, :attributes, :admission, :species]) %>
-  </p>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:species) %></label>
+    <span class="titleize"><%= t(@admission.species, scope: [:activerecord, :attributes, :admission, :species]) %></span>
+  </div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:sex) %>:</label>
-    <%= t(@admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %>
-  </p>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:sex) %></label>
+    <span class="titleize"><%= t(@admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %></span>
+  </div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:breed) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:breed) %></label>
     <%= @admission.breed %>
-  </p>
+  </div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:age) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:age) %></label>
     <%= @admission.age %>
-  </p>
+  </div>
 
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:owner_name) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:owner_name) %></label>
     <%= @admission.owner_name %>
-  </p>
+  </div>
 </div>
 
 <div class="others card">
   <div class="card__title"><%= t(:other, scope: [:common], count: 2) %></div>
-  <p>
-    <label class="form__label"><%= Admission.human_attribute_name(:comments) %>:</label>
+  <div class="card__item">
+    <label class="card__label"><%= Admission.human_attribute_name(:comments) %></label>
     <%= @admission.comments %>
-  </p>
+  </div>
 </div>
 
 <div class="exams card">
@@ -87,4 +87,4 @@
   <% end -%>
 </div>
 
-<%= link_to image_tag('icons/ic_mode_edit_white_24px.svg', alt: t(:edit_resource, scope: [:common], resource: Admission.model_name.human)), edit_admission_path(@admission), { class: 'btn btn__floating' } %>
+<%= link_to tag.i(:mode_edit, class: :icon), edit_admission_path(@admission), { class: 'btn btn__floating', title: t(:edit_resource, scope: [:common], resource: Admission.model_name.human) } %>

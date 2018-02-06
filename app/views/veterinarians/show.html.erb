@@ -1,29 +1,32 @@
 <% content_for :breadcrumbs do %>
   <%= link_to Veterinarian.model_name.human(count: 2), veterinarians_path, { class: 'breadcrumbs__item' } %>
-  <span class="breadcrumbs__separator"></span>
+  <i class="breadcrumbs__separator icon">chevron_right</i>
   <h3 class="breadcrumbs__item"><%= @veterinarian.full_name %></h3>
 <% end %>
 
-<p>
-  <strong><%= Veterinarian.human_attribute_name(:full_name) %>:</strong>
-  <%= @veterinarian.full_name %>
-</p>
+<div class="card">
+  <div class="card__item">
+    <label class="card__label"><%= Veterinarian.human_attribute_name(:full_name) %></label>
+    <%= @veterinarian.full_name %>
+  </div>
 
-<p>
-  <strong><%= Veterinarian.human_attribute_name(:phone) %>:</strong>
-  <%= @veterinarian.phone %>
-</p>
+  <div class="card__item">
+    <label class="card__label"><%= Veterinarian.human_attribute_name(:phone) %></label>
+    <%= @veterinarian.phone %>
+  </div>
 
-<p>
-  <strong><%= Veterinarian.human_attribute_name(:email) %>:</strong>
-  <%= @veterinarian.email %>
-</p>
+  <div class="card__item">
+    <label class="card__label"><%= Veterinarian.human_attribute_name(:email) %></label>
+    <%= @veterinarian.email %>
+  </div>
 
-<p>
-  <strong><%= Veterinarian.human_attribute_name(:veterinaries) %>:</strong>
-  <%= @veterinarian.veterinaries.map{|v| link_to v.name, v}.join(', ').html_safe %>
-</p>
+  <div class="card__item">
+    <label class="card__label"><%= Veterinarian.human_attribute_name(:veterinaries) %></label>
+    <%= @veterinarian.veterinaries.map{|v| link_to v.name, v}.join(', ').html_safe %>
+  </div>
 
-<%= link_to image_tag('icons/ic_mode_edit_white_24px.svg', alt: t(:edit_resource, scope: [:common], resource: Veterinarian.model_name.human)), edit_veterinarian_path(@veterinarian), { class: 'btn btn__floating' } %>
+</div>
 
-<%= link_to t(:destroy_resource, scope: [:common], resource: Veterinarian.model_name.human), @veterinarian, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to tag.i(:mode_edit, class: :icon), edit_veterinarian_path(@veterinarian), { class: 'btn btn__floating', title: t(:edit_resource, scope: [:common], resource: Veterinarian.model_name.human) } %>
+
+

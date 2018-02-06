@@ -1,6 +1,6 @@
 <%= form_with(model: admission, local: true) do |form| %>
   <% if admission.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="card">
       <h2><%= pluralize(admission.errors.count, "error") %> prohibited this admission from being saved:</h2>
 
       <ul>
@@ -11,99 +11,97 @@
     </div>
   <% end %>
 
-  <fieldset class="petitioner form__fieldset">
-    <legend class="form__fieldset-label"><%= t(:petitioner, scope: [:activerecord, :attributes, :admission]) %></legend>
+  <div class="petitioner card">
+    <div class="card__title"><%= t(:petitioner, scope: [:activerecord, :attributes, :admission]) %></div>
     <div class="field">
-      <%= form.label :veterinarian %>
+      <%= form.label :veterinarian, class: 'form__field-label' %>
       <%= form.collection_select :veterinarian_id, Veterinarian.all, :id, :full_name, { include_blank: true} , { id: :admission_veterinarian } %>
     </div>
 
     <div class="field">
-      <%= form.label :veterinary %>
+      <%= form.label :veterinary, class: 'form__field-label' %>
       <%= form.collection_select :veterinary_id, Veterinary.all, :id, :name, { include_blank: true} , { id: :admission_veterinary } %>
     </div>
 
     <div class="field">
-      <%= form.label :petitioner_name %>
+      <%= form.label :petitioner_name, class: 'form__field-label' %>
       <%= form.text_field :petitioner_name, id: :admission_petitioner_name %>
     </div>
 
     <div class="field">
-      <%= form.label :petitioner_phone %>
+      <%= form.label :petitioner_phone, class: 'form__field-label' %>
       <%= form.text_field :petitioner_phone, id: :admission_petitioner_phone %>
     </div>
 
     <div class="field">
-      <%= form.label :petitioner_email %>
+      <%= form.label :petitioner_email, class: 'form__field-label' %>
       <%= form.text_field :petitioner_email, id: :admission_petitioner_email %>
     </div>
-  </fieldset>
+  </div>
 
-  <fieldset class="patient form__fieldset">
-    <legend class="form__fieldset-label"><%= t(:patient, scope: [:activerecord, :attributes, :admission]) %></legend>
+  <div class="patient card">
+    <div class="card__title"><%= t(:patient, scope: [:activerecord, :attributes, :admission]) %></div>
 
     <div class="field">
-      <%= form.label :patient_name %>
+      <%= form.label :patient_name, class: 'form__field-label' %>
       <%= form.text_field :patient_name, id: :admission_patient_name %>
     </div>
 
     <div class="field">
-      <%= form.label :species %>
+      <%= form.label :species, class: 'form__field-label' %>
       <%= form.collection_radio_buttons :species, Admission.species, :first, :first do |b| %>
-        <%= b.label(class: "radio_button") do %>
-          <%= b.radio_button(class: "radio_button") %>
-          <%= t(b.text, scope: [:activerecord, :attributes, :admission, :species]) %>
+        <%= b.label do %>
+          <%= b.radio_button %>
+          <%= t(b.text, scope: [:activerecord, :attributes, :admission, :species]).capitalize %>
         <% end %>
       <% end %>
     </div>
 
     <div class="field">
-      <%= form.label :sex %>
+      <%= form.label :sex, class: 'form__field-label' %>
       <%= form.collection_radio_buttons :sex, Admission.sexes, :first, :first do |b| %>
-        <%= b.label(class: "radio_button") do %>
-          <%= b.radio_button(class: "radio_button") %>
-          <%= t(b.text, scope: [:activerecord, :attributes, :admission, :sex]) %>
+        <%= b.label do %>
+          <%= b.radio_button %>
+          <%= t(b.text, scope: [:activerecord, :attributes, :admission, :sex]).capitalize %>
         <% end %>
       <% end %>
     </div>
 
     <div class="field">
-      <%= form.label :breed %>
+      <%= form.label :breed, class: 'form__field-label' %>
       <%= form.text_field :breed, id: :admission_breed %>
     </div>
 
     <div class="field">
-      <%= form.label :age %>
+      <%= form.label :age, class: 'form__field-label' %>
       <%= form.text_field :age, id: :admission_age %>
     </div>
 
     <div class="field">
-      <%= form.label :owner_name %>
+      <%= form.label :owner_name, class: 'form__field-label' %>
       <%= form.text_field :owner_name, id: :admission_owner_name %>
     </div>
-  </fieldset>
+  </div>
 
-  <fieldset class="others form__fieldset">
-    <legend class="form__fieldset-label"><%= t(:other, scope: [:common], count: 2) %></legend>
+  <div class="others card">
+    <div class="card__title"><%= t(:other, scope: [:common], count: 2) %></div>
     <div class="field">
-      <%= form.label :comments %>
+      <%= form.label :comments, class: 'form__field-label' %>
       <%= form.text_area :comments, id: :admission_comments, rows: 5 %>
     </div>
-  </fieldset>
+  </div>
 
-  <fieldset class="exams form__fieldset">
-    <legend class="form__fieldset-label"><%= t(:exam, scope: [:common], count: 2) %></legend>
+  <div class="exams card">
+    <div class="card__title"><%= t(:exam, scope: [:common], count: 2) %></div>
     <div class="field">
       <% Exam.category_names.each do |category_name| %>
-        <div class="category">
-          <h3>
-            <%= label_tag nil, class: 'category-list-item' do %>
-              <%= check_box_tag(nil, category_name, Exam.for_category_name(category_name).all? { |exam| @admission.exams&.include?(exam) }) %>
-              <%= category_name %>
-            <% end %>
-          </h3>
+        <div class="category list">
+          <%= label_tag nil, class: 'category-list-item list__title' do %>
+            <%= check_box_tag(nil, category_name, Exam.for_category_name(category_name).all? { |exam| @admission.exams&.include?(exam) }) %>
+            <%= category_name %>
+          <% end %>
           <% Exam.for_category_name(category_name).each do |exam| %>
-            <%= label_tag nil, class: 'exams-list-item' do %>
+            <%= label_tag nil, class: 'exams-list-item list__item' do %>
               <%= check_box_tag('admission[exams][]', exam, @admission.exams&.include?(exam)) %>
               <%= exam %>
             <% end %>
@@ -111,9 +109,12 @@
         </div>
       <% end %>
     </div>
-  </fieldset>
+  </div>
 
   <div class="actions">
     <%= form.button class: 'btn btn-primary' %>
+    <% unless admission.new_record? %>
+      <%= link_to tag.i(:delete, class: ['icon', 'icon--danger']), admission, method: :delete, data: { confirm: 'Are you sure?' }, title: t(:destroy_resource, scope: [:common], resource: Admission.model_name.human) %>
+    <% end %>
   </div>
 <% end %>

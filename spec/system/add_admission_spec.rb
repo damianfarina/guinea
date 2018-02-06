@@ -11,7 +11,7 @@ RSpec.describe 'adding an admission', type: :system do
     end
 
     it 'should create an admission' do
-      within 'fieldset.petitioner' do
+      within '.petitioner' do
         select veterinarian.full_name, from: 'veterinario'
         select veterinary.name, from: 'veterinaria'
         fill_in 'nombre', with: "#{veterinarian.full_name} (#{veterinary.name})"
@@ -19,19 +19,19 @@ RSpec.describe 'adding an admission', type: :system do
         fill_in 'EMail', with: veterinarian.email
       end
 
-      within 'fieldset.patient' do
+      within '.patient' do
         fill_in 'nombre', with: 'Igor'
-        choose 'canino'
-        choose 'masculino'
+        choose 'Canino'
+        choose 'Masculino'
         fill_in 'raza', with: 'Rottweiler'
         fill_in 'edad', with: '4a3m'
         fill_in 'propietario', with: 'Natalia'
       end
-      within 'fieldset.others' do
+      within '.others' do
         fill_in 'comentarios', with: 'S/C'
       end
 
-      within 'fieldset.exams' do
+      within '.exams' do
         check 'Urea'
         check 'Creatinina'
         check 'Coagulación'

@@ -2,7 +2,7 @@
 @import 'type';
 
 .form {
-  &__label {
+  &__field-label {
     @extend %upcase-first-letter;
   }
 
@@ -26,10 +26,16 @@
   }
 }
 
-div {
-  &.field, &.actions {
-    margin-bottom: 1rem;
-  }
+.field,
+.actions {
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  line-height: 2.14285714;
 }
 
 .field_with_errors {
@@ -90,9 +96,9 @@ textarea,
 select {
   width: 100%;
   box-sizing: border-box;
-  border-radius: 2px;
+  border-radius: $default-border-radius;
   border: 1px solid $color-form-border;
-  padding: calc(.5rem - 1px) .5rem calc(.5rem - 1px) .5rem;
+  padding: calc(#{($default-spacing / 2)} - 1px) #{($default-spacing / 2)} calc(#{($default-spacing / 2)} - 1px) #{($default-spacing / 2)};
   font-size: 1.2rem;
   line-height: 1.66666667;
   vertical-align: top;
@@ -106,23 +112,42 @@ select {
 
 select[multiple] {
   height: auto;
+  padding-top: calc(#{$default-spacing / 2} - 2px);
+  padding-bottom: 0;
+}
+
+option {
+  font-family: 'Roboto';
+  font-size: 1.2rem;
+  line-height: 1.66666667;
+  min-height: $default-spacing;
+  font-weight: 300;
+}
+option:selected {
+  background: red;
+  color: yellow;
 }
 
 select,
 textarea,
 input[type="text"] {
   background-color: $color-form-input;
+  color: $color-text;
+  font-weight: 300;
 }
 
 button,
 input[type="submit"],
 .btn {
-  width: 100%;
   line-height: 2.4;
   font-size: 1.2rem;
   border: 1px solid transparent;
   border-radius: 2px;
-  padding: 0 .5rem;
+  padding: 0 $default-spacing;
+
+  @media screen and (max-width: 720px) {
+    width: 100%;
+  }
 }
 
 .btn {
@@ -149,7 +174,7 @@ input[type="submit"],
     height: 4rem;
     line-height: 3.33333334;
     padding: 0;
-    background-color: $color1;
+    background-color: $color-cta;
     border-radius: 50%;
     transition: background-color .3s;
     cursor: pointer;

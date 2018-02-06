@@ -1,28 +1,30 @@
 <% content_for :breadcrumbs do %>
   <%= link_to Veterinary.model_name.human(count: 2), veterinaries_path, { class: 'breadcrumbs__item' } %>
-  <span class="breadcrumbs__separator"></span>
+  <i class="breadcrumbs__separator icon">chevron_right</i>
   <h3 class="breadcrumbs__item"><%= @veterinary.name %></h3>
 <% end %>
 
-<p>
-  <strong><%= Veterinary.human_attribute_name(:name) %>:</strong>
-  <%= @veterinary.name %>
-</p>
+<div class="card">
+  <div class="card__item">
+    <label class="card__label"><%= Veterinary.human_attribute_name(:name) %></label>
+    <%= @veterinary.name %>
+  </div>
 
-<p>
-  <strong><%= Veterinary.human_attribute_name(:phone) %>:</strong>
-  <%= @veterinary.phone %>
-</p>
+  <div class="card__item">
+    <label class="card__label"><%= Veterinary.human_attribute_name(:phone) %></label>
+    <%= @veterinary.phone %>
+  </div>
 
-<p>
-  <strong><%= Veterinary.human_attribute_name(:email) %>:</strong>
-  <%= @veterinary.email %>
-</p>
+  <div class="card__item">
+    <label class="card__label"><%= Veterinary.human_attribute_name(:email) %></label>
+    <%= @veterinary.email %>
+  </div>
 
-<p>
-  <strong><%= Veterinary.human_attribute_name(:veterinarians) %>:</strong>
-  <%= @veterinary.veterinarians.map{|v| link_to v.full_name, v}.join(', ').html_safe %>
-</p>
+  <div class="card__item">
+    <label class="card__label"><%= Veterinary.human_attribute_name(:veterinarians) %></label>
+    <%= @veterinary.veterinarians.map{|v| link_to v.full_name, v}.join(', ').html_safe %>
+  </div>
 
-<%= link_to image_tag('icons/ic_mode_edit_white_24px.svg', alt: t(:edit_resource, scope: [:common], resource: Veterinary.model_name.human)), edit_veterinary_path(@veterinary), { class: 'btn btn__floating' } %>
-<%= link_to t(:destroy_resource, scope: [:common], resource: Veterinary.model_name.human), @veterinary, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+
+<%= link_to tag.i(:mode_edit, class: :icon), edit_veterinary_path(@veterinary), { class: 'btn btn__floating', title: t(:edit_resource, scope: [:common], resource: Veterinary.model_name.human) } %>

@@ -1,46 +1,57 @@
 require 'rails_helper'
 
 RSpec.describe 'admissions/index', type: :view do
-  let(:veterinarian) { create :veterinarian }
+  let!(:veterinary) { create :veterinary }
+  let(:veterinarian) { create :veterinarian, veterinaries: [veterinary] }
+  let(:admission1) do
+    create(:admission,
+      veterinarian: veterinarian,
+      veterinary: veterinary,
+      petitioner_name: veterinarian.name,
+      petitioner_phone: veterinarian.phone,
+      petitioner_email: veterinarian.email,
+      patient_name: 'Patient Name',
+      species: :canine,
+      sex: :male,
+      breed: 'Caniche',
+      owner_name: 'Damian',
+      exams: %w[Urea Creatinina],
+      comments: 'Roads? Where we\'re going, we don\'t need roads. Silence, Earthling. My name is Darth Vader. I am an extraterrestrial from the planet Vulcan!'
+    )
+  end
+  let(:admission2) do
+    create(:admission,
+      veterinarian: veterinarian,
+      veterinary: veterinary,
+      petitioner_name: veterinarian.name,
+      petitioner_phone: veterinarian.phone,
+      petitioner_email: veterinarian.email,
+      patient_name: 'Patient Name',
+      species: :feline,
+      sex: :female,
+      breed: 'Puma',
+      exams: %w[Urea]
+    )
+  end
 
   before(:each) do
-    assign(:admissions, [
-      create(:admission,
-        veterinarian: veterinarian,
-        petitioner_name: veterinarian.name,
-        petitioner_phone: veterinarian.phone,
-        petitioner_email: veterinarian.email,
-        patient_name: 'Patient Name',
-        species: :canine,
-        sex: :male,
-        breed: 'Caniche',
-        exams: %w[Urea Creatinina]
-      ),
-      create(:admission,
-        veterinarian: veterinarian,
-        petitioner_name: veterinarian.name,
-        petitioner_phone: veterinarian.phone,
-        petitioner_email: veterinarian.email,
-        patient_name: 'Patient Name',
-        species: :feline,
-        sex: :female,
-        breed: 'Puma',
-        exams: []
-      )
-    ])
+    assign(:admissions, [admission1, admission2])
   end
 
   it 'renders a list of admissions' do
     render
-    assert_select 'tr>td', text: veterinarian.name, count: 2
-    assert_select 'tr>td', text: 'Patient Name', count: 2
-    assert_select 'tr>td', text: 'canino', count: 1
-    assert_select 'tr>td', text: 'felino', count: 1
-    assert_select 'tr>td', text: 'masculino', count: 1
-    assert_select 'tr>td', text: 'femenino', count: 1
-    assert_select 'tr>td', text: 'Caniche', count: 1
-    assert_select 'tr>td', text: 'Puma', count: 1
-    assert_select 'tr>td.exams-count', text: '2', count: 1
-    assert_select 'tr>td.exams-count', text: '0', count: 1
+    assert_select '.admission', count: 2
+    assert_select '.admissions' do
+      assert_select '.admission:first' do
+        assert_select "a.show[href='#{admission_path(admission1)}']", count: 1
+        assert_select '.petitioner', text: veterinarian.full_name, count: 1
+        assert_select '.patient', text: admission1.patient_name, count: 1
+        assert_select '.species', text: 'canino', count: 1
+        assert_select '.breed', text: admission1.breed, count: 1
+        assert_select '.owner', text: 'Damian', count: 1
+        assert_select '.comments', text: admission1.comments, count: 1
+        assert_select '.exams-count', text: "#{admission1.exams.count} exámenes", count: 1
+      end
+    end
   end
 end

@@ -2,32 +2,32 @@
   <h3 class="breadcrumbs__item breadcrumbs__item--active"><%= Admission.model_name.human(count: 2) %></h3>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= Admission.human_attribute_name(:petitioner_name) %></th>
-      <th><%= Admission.human_attribute_name(:patient_name) %></th>
-      <th><%= Admission.human_attribute_name(:species) %></th>
-      <th><%= Admission.human_attribute_name(:breed) %></th>
-      <th><%= Admission.human_attribute_name(:sex) %></th>
-      <th><%= Admission.human_attribute_name(:exams) %></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @admissions.each do |admission| %>
-      <tr>
-        <td><%= link_to admission.petitioner_name, admission %></td>
-        <td><%= link_to admission.patient_name, admission %></td>
-        <td><%= t(admission.species, scope: [:activerecord, :attributes, :admission, :species]) %></td>
-        <td><%= admission.breed %></td>
-        <td><%= t(admission.sex, scope: [:activerecord, :attributes, :admission, :sex]) %></td>
-        <td class="exams-count"><%= admission.exams&.count || 0 %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="admissions collection">
+  <% @admissions.each do |admission| %>
+    <div class="admission collection__item">
 
-<br>
+      <div class="collection__item-area1">
+        <div class="petitioner"><%= admission.petitioner_name %></div>
+        <div class="owner"><%= admission.owner_name %></div>
+        <div class="exams-count"><%= admission.exams.count %> <%= Admission.human_attribute_name(:exams, count: admission.exams.count) %></div>
+      </div>
 
-<%= link_to image_tag('icons/ic_add_white_24px.svg', alt: t(:new_resource, scope: [:common], resource: Admission.model_name.human)), new_admission_path, { class: 'btn btn__floating' } %>
+      <div class="collection__item-area2">
+        <div class="patient"><%= admission.patient_name %></div>
+        <div class="species titleize"><%= t(admission.species, scope: [:activerecord, :attributes, :admission, :species]) %></div>
+        <div class="breed"><%= admission.breed %></div>
+      </div>
+
+      <div class="collection__item-area3">
+        <div class="comments collection__item-description"><p><%= admission.comments %></p></div>
+      </div>
+
+      <div class="collection__item-area4">
+        <%= link_to :arrow_forward, admission_path(admission), class: 'icon show collection__item-link' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to tag.i(:add, class: :icon), new_admission_path, { class: 'btn btn__floating', title: t(:new_resource, scope: [:common], resource: Admission.model_name.human) } %>

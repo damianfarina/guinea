@@ -17,7 +17,8 @@ RSpec.describe Admission, type: :model do
       breed: 'Rottweiler',
       age: '3a1m',
       owner_name: 'Bibi',
-      comments: 'Hello, do not forget this'
+      comments: 'Hello, do not forget this',
+      exams: %w[Urea]
     )
     expect(admission.persisted?).to be_truthy
   end
@@ -26,7 +27,8 @@ RSpec.describe Admission, type: :model do
     admission = Admission.create(
       petitioner_name: 'AAA',
       species: :canine,
-      owner_name: 'BBB'
+      owner_name: 'BBB',
+      exams: %w[Urea]
     )
     expect(admission.persisted?).to be_truthy
   end

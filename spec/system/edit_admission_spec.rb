@@ -18,7 +18,7 @@ RSpec.describe 'editing an admission', type: :system do
   end
 
   it 'should display the form', js: true do
-    within 'fieldset.petitioner' do
+    within '.petitioner' do
       expect(page).to have_select('veterinaria', with_selected: veterinary.name)
       expect(page).to have_select('veterinario', with_selected: veterinarian.full_name)
       expect(page).to have_field('nombre', with: "#{veterinarian.full_name} (#{veterinary.name})")
@@ -26,7 +26,7 @@ RSpec.describe 'editing an admission', type: :system do
       expect(page).to have_field('EMail', with: veterinarian.email)
     end
 
-    within 'fieldset.exams' do
+    within '.exams' do
       expect(page).to have_field('Orina', checked: true)
       expect(page).to have_field('Urianálisis', checked: true)
       expect(page).to have_field('Relación P:C', checked: true)
@@ -39,7 +39,7 @@ RSpec.describe 'editing an admission', type: :system do
       expect(page).to have_field('Coagulación', checked: false)
     end
 
-    within 'fieldset.exams' do
+    within '.exams' do
       uncheck 'Orina'
       uncheck 'Piel'
       check 'Urea'

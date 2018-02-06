@@ -1,0 +1,63 @@
+@import 'variables';
+@import 'type';
+
+.collection {
+  background-color: $color9;
+  border: 1px solid $color-border;
+  border-radius: $default-border-radius;
+
+  &__item {
+    font-size: 1.2rem;
+    line-height: 1.33333334;
+    display: grid;
+    grid-template-areas: "area1 area2 area3 area4";
+    grid-template-columns: 1fr 1fr 1fr 4rem;
+    height: 5rem;
+    overflow: hidden;
+    padding: ($default-spacing / 2) $default-spacing;
+    border-bottom: 1px solid $color-border;
+    padding-bottom: calc(#{$default-spacing / 2} - 1px);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: $default-spacing / 2;
+    }
+  }
+
+  &__item-area1 {
+    grid-area: area1;
+  }
+
+  &__item-area2 {
+    grid-area: area2;
+  }
+
+  &__item-area3 {
+    grid-area: area3;
+  }
+
+  &__item-area4 {
+    grid-area: area4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__item-area1,
+  &__item-area2,
+  &__item-area3,
+  &__item-area14 {
+    position: relative;
+    height: 5rem;
+    overflow: hidden;
+  }
+
+  a {
+    display: inline-block;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.33333334;
+    @extend %fade-paragraph;
+  }
+}

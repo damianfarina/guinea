@@ -10,7 +10,7 @@ RSpec.describe AdmissionsController, type: :controller do
       petitioner: nil,
       petitioner_name: petitioner_attributes[:full_name],
       petitioner_email: petitioner_attributes[:email],
-      exams: petitioner_attributes[:exams]
+      exams: %w[Urea]
   end
   let(:invalid_attributes) do
     valid_attributes.merge(

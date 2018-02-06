@@ -59,7 +59,10 @@ es:
         age: edad
         owner_name: propietario
         comments: comentarios
-        exams: exámenes
+        exams:
+          zero: exámenes
+          one: examen
+          other: exámenes
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

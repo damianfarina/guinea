@@ -36,5 +36,8 @@
 
   <div class="actions">
     <%= form.button class: 'btn btn-primary' %>
+    <% unless veterinarian.new_record? %>
+      <%= link_to tag.i(:delete, class: ['icon', 'icon--danger']), veterinarian, method: :delete, data: { confirm: 'Are you sure?' }, title: t(:destroy_resource, scope: [:common], resource: Veterinarian.model_name.human) %>
+    <% end %>
   </div>
 <% end %>

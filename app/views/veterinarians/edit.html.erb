@@ -1,8 +1,8 @@
 <% content_for :breadcrumbs do %>
   <%= link_to Veterinarian.model_name.human(count: 2), veterinarians_path, { class: 'breadcrumbs__item' } %>
-  <span class="breadcrumbs__separator"></span>
+  <i class="breadcrumbs__separator icon">chevron_right</i>
   <%= link_to @veterinarian.name, @veterinarian, { class: 'breadcrumbs__item' } %>
-  <span class="breadcrumbs__separator"></span>
+  <i class="breadcrumbs__separator icon">chevron_right</i>
   <h3 class="breadcrumbs__item breadcrumbs__item--active"><%= t(:edit_resource, scope: [:common], resource: Veterinarian.model_name.human) %></h3>
 <% end %>
 

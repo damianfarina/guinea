@@ -2,26 +2,28 @@
   <h3 class="breadcrumbs__item breadcrumbs__item--active"><%= Veterinarian.model_name.human(count: 2) %></h3>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= Veterinarian.human_attribute_name(:full_name) %></th>
-      <th><%= Veterinarian.human_attribute_name(:phone) %></th>
-      <th><%= Veterinarian.human_attribute_name(:email) %></th>
-    </tr>
-  </thead>
+<div class="veterinarians collection">
+  <% @veterinarians.each do |veterinarian| %>
+    <div class="veterinarian collection__item">
+      <div class="collection__item-area1">
+        <div class="full-name"><%= veterinarian.full_name %></div>
+        <div class="phone"><%= veterinarian.phone %></div>
+        <div class="email"><%= veterinarian.email %></div>
+      </div>
 
-  <tbody>
-    <% @veterinarians.each do |veterinarian| %>
-      <tr>
-        <td><%= link_to veterinarian.full_name, veterinarian %></td>
-        <td><%= veterinarian.phone %></td>
-        <td><%= veterinarian.email %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <div class="collection__item-area2">
+        <div class="veterinaries">
+          <% veterinarian.veterinaries.each do |veterinary| %>
+            <div class="veterinary"><%= veterinary.name %></div>
+          <% end %>
+        </div>
+      </div>
 
-<br>
+      <div class="collection__item-area4">
+        <%= link_to :arrow_forward, veterinarian_path(veterinarian), class: 'icon show collection__item-link' %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<%= link_to image_tag('icons/ic_person_add_white_24px.svg', alt: t(:new_resource, scope: [:common], resource: Veterinarian.model_name.human)), new_veterinarian_path, { class: 'btn btn__floating' } %>
+<%= link_to tag.i(:person_add, class: :icon), new_veterinarian_path, { class: 'btn btn__floating', title: t(:new_resource, scope: [:common], resource: Veterinarian.model_name.human) } %>

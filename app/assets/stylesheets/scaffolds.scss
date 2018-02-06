@@ -1,7 +1,6 @@
 @import 'variables';
 
 p, ol, ul, td {
-  font-family: helvetica, verdana, arial, sans-serif;
   font-size: 1.4rem;
   line-height: 1.42857143;
 }
@@ -20,10 +19,6 @@ pre {
 a {
   text-decoration: none;
   color: $color1;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 th {
@@ -32,10 +27,6 @@ th {
 
 td {
   padding: 0 .5rem .7rem;
-}
-
-.exams-list-item {
-  margin-left: $default-spacing;
 }
 
 h3 {

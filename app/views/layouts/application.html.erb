@@ -23,7 +23,7 @@
       <%= link_to image_tag('logo.svg'), root_path, class: 'top-bar__logo' %>
       <% if content_for? :breadcrumbs %>
         <div class="breadcrumbs">
-          <span class="breadcrumbs__separator"></span>
+          <i class="breadcrumbs__separator icon">chevron_right</i>
           <%= yield :breadcrumbs %>
         </div>
       <% end %>

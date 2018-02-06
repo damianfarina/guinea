@@ -2,7 +2,7 @@ class AdmissionsController < ApplicationController
   before_action :set_admission, only: [:show, :edit, :update, :destroy]
 
   def index
-    @admissions = Admission.all
+    @admissions = Admission.order(:created_at).reverse_order
   end
 
   def show; end

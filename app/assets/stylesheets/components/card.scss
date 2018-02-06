@@ -9,11 +9,20 @@
   border: 1px solid $color-border;
 
   &__title {
-    display: block;
     font-size: 1.7rem;
     line-height: 1.76470588;
     margin-bottom: $default-spacing;
     font-weight: 500;
     @extend %upcase-first-letter;
+  }
+
+  &__label {
+    @extend %upcase-first-letter;
+    display: block;
+    font-weight: 500;
+  }
+
+  &__item {
+    margin-bottom: $default-spacing;
   }
 }
